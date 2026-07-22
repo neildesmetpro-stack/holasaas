@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HolaSaaS : Ton SaaS, de A à Z, en un diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root {
+  --bg: #08080f;
+  --bg2: #0f0f1a;
+  --bg3: #141424;
+  --accent: #7c6fff;
+  --accent2: #3b82f6;
+  --accent3: #a78bfa;
+  --text: #f0f0ff;
+  --muted: #8888aa;
+  --border: rgba(124,111,255,0.18);
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(124,111,255,0.08);
+  --success: #22d3a5;
+  --r: 16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* ── UTILS ── */
+.hidden{display:none!important}
+.flex{display:flex}
+.col{flex-direction:column}
+.center{align-items:center;justify-content:center}
+.gap2{gap:8px}.gap3{gap:12px}.gap4{gap:16px}.gap6{gap:24px}.gap8{gap:32px}
+.w100{width:100%}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;backdrop-filter:blur(20px);background:rgba(8,8,15,0.7);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;transition:opacity .2s,transform .2s}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,111,255,0.15) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(59,130,246,0.1) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:100px;font-size:.8rem;color:var(--accent3);margin-bottom:32px;backdrop-filter:blur(10px)}
+.hero-badge span{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;max-width:900px}
+h1 .grad{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1.2rem;color:var(--muted);max-width:600px;margin-bottom:48px;font-weight:400;line-height:1.7}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 60px rgba(124,111,255,0.35)}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 0 80px rgba(124,111,255,0.5)}
+.hero-cta svg{transition:transform .3s}
+.hero-cta:hover svg{transform:translateX(4px)}
+.hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:48px;border-top:1px solid var(--border)}
+.stat{text-align:center}
+.stat-n{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-l{font-size:.8rem;color:var(--muted);margin-top:2px}
+
+/* ── SECTION BASE ── */
+section{padding:100px 24px}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.section-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
+.section-sub{font-size:1.05rem;color:var(--muted);max-width:560px;line-height:1.7}
+
+/* ── PROBLEM ── */
+.problems{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:56px}
+.prob-card{padding:28px;border:1px solid var(--border);border-radius:var(--r);background:var(--card);backdrop-filter:blur(10px)}
+.prob-icon{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.prob-card h3{font-size:1rem;font-weight:600;margin-bottom:8px}
+.prob-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;position:relative}
+.steps::before{content:'';position:absolute;top:40px;left:16%;right:16%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.step{text-align:center;padding:32px 20px}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 20px;box-shadow:0 0 30px rgba(124,111,255,0.3)}
+.step h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
+.step p{font-size:.9rem;color:var(--muted);line-height:1.6}
+
+/* ── PACKAGE ── */
+.package-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px}
+.pack-item{display:flex;align-items:flex-start;gap:16px;padding:24px;border:1px solid var(--border);border-radius:var(--r);background:var(--card)}
+.pack-icon{width:40px;height:40px;border-radius:10px;background:var(--glass);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.65rem;font-weight:800;letter-spacing:1px;color:var(--accent)}
+.pack-item h3{font-size:.95rem;font-weight:600;margin-bottom:4px}
+.pack-item p{font-size:.85rem;color:var(--muted)}
+
+/* ── PRICING ── */
+.pricing-card{max-width:520px;margin:56px auto 0;border:1px solid var(--accent);border-radius:24px;background:var(--bg2);padding:48px;text-align:center;position:relative;overflow:hidden}
+.pricing-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(124,111,255,0.1),transparent 70%);pointer-events:none}
+.price-badge{display:inline-block;padding:6px 16px;background:var(--glass);border:1px solid var(--border);border-radius:100px;font-size:.75rem;color:var(--accent3);margin-bottom:24px}
+.price-amount{font-size:4rem;font-weight:900;line-height:1;letter-spacing:-2px}
+.price-amount sup{font-size:1.5rem;vertical-align:super;font-weight:600}
+.price-once{font-size:.9rem;color:var(--muted);margin-top:8px;margin-bottom:32px}
+.price-features{list-style:none;text-align:left;margin-bottom:40px;display:flex;flex-direction:column;gap:12px}
+.price-features li{display:flex;align-items:center;gap:12px;font-size:.95rem}
+.check{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem}
+.price-cta{width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(124,111,255,0.3)}
+.price-cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,111,255,0.5)}
+.price-guarantee{font-size:.8rem;color:var(--muted);margin-top:20px}
+
+/* ── FAQ ── */
+.faq-list{max-width:700px;margin:56px auto 0;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-q{padding:20px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem;transition:background .2s}
+.faq-q:hover{background:var(--card)}
+.faq-arrow{transition:transform .3s;color:var(--accent);font-size:1.2rem}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+.faq-a p{font-size:.9rem;color:var(--muted);line-height:1.7}
+
+/* ── FOOTER ── */
+footer{padding:48px 24px;border-top:1px solid var(--border);text-align:center}
+.footer-links{display:flex;justify-content:center;gap:32px;margin-bottom:20px}
+.footer-links a{font-size:.85rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+footer p{font-size:.8rem;color:var(--muted)}
+
+/* ══════════════════════════════════════
+   ONBOARDING
+══════════════════════════════════════ */
+#onboarding-overlay{position:fixed;inset:0;z-index:150;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+#onboarding-overlay.hidden{display:none!important}
+.ob-screen{display:none;flex-direction:column;align-items:center;justify-content:center;max-width:580px;width:100%;animation:obIn .5s ease both}
+.ob-screen.active{display:flex}
+@keyframes obIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.ob-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.ob-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
+.ob-sub{font-size:1rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px}
+.ob-warning{background:rgba(124,111,255,0.06);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:36px;max-width:460px}
+.ob-warning p{color:var(--muted);font-size:.95rem;line-height:1.7}
+.ob-warning strong{color:var(--text)}
+.ob-timer{width:100%;max-width:300px;height:2px;background:rgba(124,111,255,0.15);border-radius:2px;margin-bottom:28px;overflow:hidden}
+.ob-timer-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;width:0%;transition:width linear}
+.ob-actions{display:flex;gap:12px;align-items:center}
+.ob-btn-primary{padding:14px 36px;border:none;border-radius:100px;font-size:1rem;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:opacity .2s,transform .2s}
+.ob-btn-primary:hover{opacity:.85;transform:translateY(-2px)}
+.ob-btn-skip{padding:12px 24px;border:1px solid var(--border);border-radius:100px;background:transparent;color:var(--muted);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
+.ob-btn-skip:hover{color:var(--text);border-color:var(--accent)}
+.ob-dots{display:flex;gap:6px;margin-bottom:28px}
+.ob-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .3s}
+.ob-dot.active{background:var(--accent)}
+
+/* ══════════════════════════════════════
+   DIAGNOSTIC OVERLAY
+══════════════════════════════════════ */
+#diag-overlay{position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;display:flex;flex-direction:column}
+.diag-header{padding:20px 32px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0}
+.diag-logo{display:flex;align-items:center}
+.diag-close{background:var(--card);border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:1.1rem;transition:all .2s}
+.diag-close:hover{color:var(--text);border-color:var(--accent)}
+.diag-progress-wrap{padding:16px 32px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.diag-progress-meta{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:8px}
+.diag-progress-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.diag-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .4s ease}
+.diag-sections{display:flex;gap:8px;padding:16px 32px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--border)}
+.diag-section-tab{padding:6px 14px;border-radius:100px;font-size:.75rem;font-weight:600;white-space:nowrap;transition:all .2s;color:var(--muted);border:1px solid transparent}
+.diag-section-tab.active{background:var(--glass);border-color:var(--border);color:var(--accent)}
+.diag-section-tab.done{color:var(--success)}
+.diag-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;min-height:0}
+.question-card{width:100%;max-width:700px;animation:slideUp .4s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.q-section-label{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.q-text{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;line-height:1.3;margin-bottom:8px;letter-spacing:-.5px}
+.q-sub{font-size:.9rem;color:var(--muted);margin-bottom:32px;line-height:1.6}
+
+/* Textarea */
+.q-textarea{width:100%;min-height:130px;background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 20px;color:var(--text);font-family:'Inter',sans-serif;font-size:1rem;resize:vertical;transition:border-color .2s;outline:none;line-height:1.6}
+.q-textarea:focus{border-color:var(--accent)}
+.q-textarea::placeholder{color:var(--muted)}
+
+/* Cards (single + multi) */
+.cards-grid{display:grid;gap:12px}
+.cards-grid.cols2{grid-template-columns:repeat(2,1fr)}
+.cards-grid.cols3{grid-template-columns:repeat(3,1fr)}
+.cards-grid.cols4{grid-template-columns:repeat(4,1fr)}
+.q-card{padding:16px 20px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;background:var(--card);display:flex;align-items:center;gap:12px;font-size:.9rem;font-weight:500}
+.q-card:hover{border-color:var(--accent);background:var(--glass)}
+.q-card.selected{border-color:var(--accent);background:var(--glass);color:var(--accent)}
+.q-card .card-icon{font-size:1.3rem;flex-shrink:0;width:28px;text-align:center}
+
+/* Toggle */
+.toggle-wrap{display:flex;gap:12px}
+.toggle-btn{flex:1;padding:16px;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;font-weight:600;font-size:.95rem;transition:all .2s;background:var(--card)}
+.toggle-btn:hover{border-color:var(--accent)}
+.toggle-btn.selected{border-color:var(--accent);background:var(--glass);color:var(--accent)}
+
+/* Slider */
+.slider-wrap{width:100%}
+.slider-labels{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:8px}
+.q-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--bg3);outline:none;cursor:pointer}
+.q-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));cursor:pointer;box-shadow:0 0 12px rgba(124,111,255,0.5);transition:box-shadow .2s}
+.q-slider::-webkit-slider-thumb:hover{box-shadow:0 0 20px rgba(124,111,255,0.7)}
+.slider-value{text-align:center;font-size:1.4rem;font-weight:700;color:var(--accent);margin-top:12px}
+.slider-unit{font-size:.9rem;font-weight:400;color:var(--muted)}
+
+/* Tags input */
+.tags-input-wrap{border:1.5px solid var(--border);border-radius:var(--r);padding:12px 16px;background:var(--bg2);min-height:80px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;cursor:text;transition:border-color .2s}
+.tags-input-wrap:focus-within{border-color:var(--accent)}
+.tag-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;background:var(--glass);border:1px solid var(--border);border-radius:100px;font-size:.8rem;color:var(--accent3)}
+.tag-remove{cursor:pointer;font-size:1rem;line-height:1;color:var(--muted);transition:color .2s}
+.tag-remove:hover{color:var(--text)}
+.tag-input{flex:1;min-width:120px;background:none;border:none;outline:none;color:var(--text);font-family:'Inter',sans-serif;font-size:.9rem}
+.tag-input::placeholder{color:var(--muted)}
+.tag-hint{font-size:.75rem;color:var(--muted);margin-top:8px}
+
+/* Text fields multi */
+.text-fields{display:flex;flex-direction:column;gap:12px}
+.q-input{width:100%;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;color:var(--text);font-family:'Inter',sans-serif;font-size:.95rem;outline:none;transition:border-color .2s}
+.q-input:focus{border-color:var(--accent)}
+.q-input::placeholder{color:var(--muted)}
+
+/* Color picker */
+.color-palette{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.color-swatch{width:36px;height:36px;border-radius:50%;cursor:pointer;transition:transform .2s,box-shadow .2s;border:2px solid transparent}
+.color-swatch:hover{transform:scale(1.15)}
+.color-swatch.selected{border-color:#fff;box-shadow:0 0 0 3px var(--accent);transform:scale(1.2)}
+
+/* Icon grid (integrations) */
+.icon-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.icon-tile{padding:12px 8px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;text-align:center;font-size:.75rem;transition:all .2s;background:var(--card)}
+.icon-tile:hover{border-color:var(--accent);background:var(--glass)}
+.icon-tile.selected{border-color:var(--accent);background:var(--glass);color:var(--accent)}
+.icon-tile .ti{font-size:1.2rem;display:block;margin-bottom:4px}
+
+/* Precision text below cards */
+.precision-wrap{margin-top:14px}
+.precision-label{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+
+/* Navigation */
+.diag-nav{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;border-top:1px solid var(--border);flex-shrink:0}
+.btn-back{padding:12px 24px;background:var(--card);border:1px solid var(--border);border-radius:100px;color:var(--muted);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-back:hover{color:var(--text);border-color:var(--accent)}
+.btn-next{padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,111,255,0.35)}
+.btn-next:disabled{opacity:.4;cursor:default;transform:none}
+.q-counter{font-size:.85rem;color:var(--muted)}
+
+/* ══════════════════════════════════════
+   SUMMARY
+══════════════════════════════════════ */
+#summary-overlay{position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
+.summary-inner{max-width:800px;margin:0 auto;padding:80px 24px}
+.summary-inner h2{font-size:2rem;font-weight:800;margin-bottom:8px}
+.summary-inner .s-sub{color:var(--muted);margin-bottom:48px}
+.summary-section{margin-bottom:32px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.summary-section-head{padding:16px 24px;background:var(--bg2);font-weight:700;font-size:.85rem;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border)}
+.summary-rows{padding:8px 0}
+.summary-row{display:flex;gap:16px;padding:10px 24px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.summary-row:last-child{border-bottom:none}
+.s-label{width:220px;flex-shrink:0;font-size:.82rem;color:var(--muted)}
+.s-val{font-size:.9rem;color:var(--text)}
+.summary-cta-wrap{text-align:center;margin-top:48px;padding:40px;border:1px solid var(--accent);border-radius:24px;background:var(--bg2)}
+.summary-price{font-size:3rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.summary-once{color:var(--muted);font-size:.9rem;margin-bottom:28px}
+.summary-pay-btn{padding:18px 56px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(124,111,255,0.3)}
+.summary-pay-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,111,255,0.5)}
+
+/* ══════════════════════════════════════
+   SUCCESS
+══════════════════════════════════════ */
+#success-overlay{position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
+.success-inner{max-width:900px;margin:0 auto;padding:80px 24px}
+.success-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;background:rgba(34,211,165,0.1);border:1px solid rgba(34,211,165,0.3);border-radius:100px;color:var(--success);font-size:.85rem;font-weight:600;margin-bottom:32px}
+.success-inner h2{font-size:2.2rem;font-weight:800;margin-bottom:12px}
+.success-inner .s-sub{color:var(--muted);margin-bottom:48px;font-size:1rem}
+.prompt-block{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
+.prompt-head{padding:14px 20px;background:var(--bg2);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.prompt-title{font-weight:700;font-size:.9rem}
+.prompt-badge{font-size:.7rem;padding:3px 10px;background:var(--glass);border:1px solid var(--border);border-radius:100px;color:var(--accent3)}
+.copy-btn{padding:6px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:.78rem;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.copy-btn:hover{color:var(--accent);border-color:var(--accent)}
+.prompt-content{padding:20px;background:var(--bg);font-family:'Courier New',monospace;font-size:.78rem;line-height:1.7;color:#c8d3f5;white-space:pre-wrap;overflow-x:auto;max-height:320px;overflow-y:auto}
+.next-steps{margin-top:48px}
+.next-steps h3{font-size:1.2rem;font-weight:700;margin-bottom:20px}
+.steps-list{display:flex;flex-direction:column;gap:12px}
+.nstep{display:flex;align-items:flex-start;gap:16px;padding:16px 20px;border:1px solid var(--border);border-radius:var(--r);background:var(--card)}
+.nstep-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.nstep-text h4{font-size:.9rem;font-weight:600;margin-bottom:4px}
+.nstep-text p{font-size:.82rem;color:var(--muted)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav{padding:16px 20px}
+  .hero-stats{gap:24px}
+  .steps{grid-template-columns:1fr;gap:16px}
+  .steps::before{display:none}
+  .package-grid{grid-template-columns:1fr}
+  .cards-grid.cols3,.cards-grid.cols4{grid-template-columns:repeat(2,1fr)}
+  .icon-grid{grid-template-columns:repeat(4,1fr)}
+  .diag-sections{padding:12px 20px}
+  .diag-nav{padding:16px 20px}
+  .diag-progress-wrap{padding:12px 20px}
+}
+@media(max-width:480px){
+  .cards-grid.cols2{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column;gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LANDING
+══════════════════════════════════════ -->
+<div id="landing">
+
+<nav>
+  <div class="logo"><img src="logo-dark.png" alt="HolaSaaS" style="height:30px;width:auto;"></div>
+  <button class="nav-cta" onclick="startDiag()">Commencer</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><span></span>Diagnostic IA · Livraison en 48h</div>
+  <h1>Ton SaaS, de <span class="grad">A&nbsp;à&nbsp;Z</span>,<br>en un diagnostic.</h1>
+  <p class="hero-sub">Réponds à nos questions. On génère le brief parfait pour Claude Code. Ton SaaS sort de l'autre côté, clé en main.</p>
+  <button class="hero-cta" onclick="startDiag()">
+    Lancer mon diagnostic
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">58</div><div class="stat-l">Questions précises</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">Dimensions analysées</div></div>
+    <div class="stat"><div class="stat-n">48h</div><div class="stat-l">Délai de livraison</div></div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">Le problème</div>
+    <h2 class="section-title">Tu as l'idée.<br>Mais pas le code.</h2>
+    <p class="section-sub">Recruter un dev coûte cher. Les no-code ont leurs limites. Et Claude Code, sans brief précis, produit du générique.</p>
+    <div class="problems">
+      <div class="prob-card">
+        <div class="prob-icon">01</div>
+        <h3>Un dev senior : 500 à 800 € par jour</h3>
+        <p>Pour un MVP, tu en as pour 30 à 60k€ avant même d'avoir ton premier utilisateur payant.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">02</div>
+        <h3>No-code : limité par design</h3>
+        <p>Bubble, Webflow, Glide. Parfaits jusqu'au mur. Scalabilité, logique métier complexe, API sur mesure : limite rapide.</p>
+      </div>
+      <div class="prob-card">
+        <div class="prob-icon">03</div>
+        <h3>L'IA sans brief : du générique</h3>
+        <p>Demander à Claude de "faire un SaaS" sans contexte produit, design, légal et technique donne un résultat moyen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">Comment ça marche</div>
+    <h2 class="section-title">Trois étapes. Un SaaS.</h2>
+    <p class="section-sub">Le diagnostic fait le vrai travail de structuration. Claude Code fait le reste.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Tu réponds au diagnostic</h3>
+        <p>58 questions sur ta vision, ton produit, ton design, ton cadre légal et ton profil. 20 minutes. Zéro flou.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>On génère ton brief Claude Code</h3>
+        <p>Un prompt masterclass, structuré, complet, avec toutes les spécifications techniques et créatives pour ton SaaS exact.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Tu lances, tu itères, tu shippes</h3>
+        <p>Colle le prompt dans Claude Code. Suis les étapes. Ton SaaS se construit. Tu l'exploites. On t'explique comment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">Ce que tu reçois</div>
+    <h2 class="section-title">Un pack complet.<br>Pas juste un prompt.</h2>
+    <p class="section-sub">Tout ce qu'il faut pour passer de l'idée au SaaS en production.</p>
+    <div class="package-grid">
+      <div class="pack-item">
+        <div class="pack-icon">01</div>
+        <div><h3>Prompt maître Claude Code</h3><p>Le brief technique complet, structuré par domaine, prêt à coller dans Claude Code.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">02</div>
+        <div><h3>7 prompts de build phase par phase</h3><p>Architecture, BDD, auth, features, design, paiement, déploiement. Un prompt par étape.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">03</div>
+        <div><h3>Pages légales générées</h3><p>CGU, CGV et politique de confidentialité pré-remplies avec tes infos et ton activité.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">04</div>
+        <div><h3>Guide d'exploitation étape par étape</h3><p>Comment utiliser Claude Code, déployer ton SaaS et acquérir tes premiers clients.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">05</div>
+        <div><h3>Stack technique recommandée</h3><p>Next.js, Supabase, Stripe, Vercel, ou autre selon tes réponses. Avec justification.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">06</div>
+        <div><h3>Architecture produit détaillée</h3><p>Schéma BDD, structure de fichiers, routes API, user flows. Tout est prémâché.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="text-align:center">
+    <div class="section-label">Tarif</div>
+    <h2 class="section-title">Un prix. Une fois. Pour toujours.</h2>
+    <p class="section-sub" style="margin:0 auto">Pas d'abonnement. Pas de surprise. Tu paies, tu reçois ton pack complet dans les 48h.</p>
+    <div class="pricing-card">
+      <div class="price-badge">Paiement unique, accès à vie</div>
+      <div class="price-amount"><sup>&euro;</sup>497</div>
+      <div class="price-once">une seule fois, tout inclus</div>
+      <ul class="price-features">
+        <li><span class="check">&#10003;</span>Diagnostic 58 questions</li>
+        <li><span class="check">&#10003;</span>Prompt maître Claude Code</li>
+        <li><span class="check">&#10003;</span>7 prompts de build phasés</li>
+        <li><span class="check">&#10003;</span>Pages légales (CGU, CGV, RGPD)</li>
+        <li><span class="check">&#10003;</span>Guide d'exploitation complet</li>
+        <li><span class="check">&#10003;</span>Architecture et stack recommandées</li>
+        <li><span class="check">&#10003;</span>Support par email 30 jours</li>
+      </ul>
+      <button class="price-cta" onclick="startDiag()">Commencer mon diagnostic</button>
+      <div class="price-guarantee">Paiement sécurisé via Stripe · Satisfait ou remboursé 7 jours</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="container" style="text-align:center">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Questions fréquentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Je n'ai aucune compétence technique. C'est pour moi ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Absolument. Le diagnostic ne nécessite aucune connaissance technique. Tu décris ton idée, ta cible, tes ambitions. On traduit ça en langage que Claude Code comprend. Ton seul job : répondre honnêtement.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Qu'est-ce que Claude Code exactement ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Claude Code est l'outil de développement IA d'Anthropic. Il code, structure, déploie des applications complètes à partir d'instructions précises. Avec notre prompt, il a tout ce qu'il lui faut pour construire ton SaaS de A à Z.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">En combien de temps je reçois mon pack ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Ton pack est généré automatiquement dès la fin de ton diagnostic et du paiement. Tu l'as immédiatement après la transaction. Les 48h mentionnées sont la marge qu'on garde pour vérifier et personnaliser si nécessaire.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">C'est vraiment un paiement unique ? Pas d'abonnement caché ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Oui. Tu paies 497€ une fois. Tu reçois ton pack. C'est tout. Pas d'abonnement, pas de renouvellement, pas de surprise sur ta carte.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Et si je ne suis pas satisfait ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Tu as 7 jours pour demander un remboursement complet, sans justification. Envoie un email à contact@holasaas.ai et on rembourse dans les 48h.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="cgv.html">CGV</a>
+    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    <a href="mailto:contact@holasaas.ai">Contact</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </div>
+  <p>&copy; 2026 HolaSaaS · Le Cap · SIREN 932&nbsp;229&nbsp;503 · 1 rue du Haras, 91240 Saint-Michel-sur-Orge</p>
+</footer>
+
+</div><!-- /landing -->
+
+<div id="onboarding-overlay" class="hidden"></div>
+
+<!-- ══════════════════════════════════════
+     DIAGNOSTIC OVERLAY
+══════════════════════════════════════ -->
+<div id="diag-overlay" class="hidden">
+  <div class="diag-header">
+    <div class="diag-logo"><img src="logo-dark.png" alt="HolaSaaS" style="height:26px;width:auto;"></div>
+    <button class="diag-close" onclick="closeDiag()">&#10005;</button>
+  </div>
+  <div class="diag-progress-wrap">
+    <div class="diag-progress-meta">
+      <span id="diag-section-name">Vision &amp; Marché</span>
+      <span id="diag-q-counter">Question 1 / 58</span>
+    </div>
+    <div class="diag-progress-bar"><div class="diag-progress-fill" id="diag-fill" style="width:2%"></div></div>
+  </div>
+  <div class="diag-sections" id="diag-tabs"></div>
+  <div class="diag-body">
+    <div class="question-card" id="q-card"></div>
+  </div>
+  <div class="diag-nav">
+    <button class="btn-back" id="btn-back" onclick="prevQ()" style="visibility:hidden">&#8592; Retour</button>
+    <span class="q-counter" id="q-nav-counter"></span>
+    <button class="btn-next" id="btn-next" onclick="nextQ()">Suivant <span>&#8594;</span></button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SUMMARY OVERLAY
+══════════════════════════════════════ -->
+<div id="summary-overlay" class="hidden">
+  <div class="summary-inner">
+    <h2>Voici ton diagnostic complet</h2>
+    <p class="s-sub">Vérifie tes réponses avant de procéder au paiement. Tu peux revenir modifier si besoin.</p>
+    <div id="summary-content"></div>
+    <div class="summary-cta-wrap">
+      <div class="summary-price">&euro;497</div>
+      <div class="summary-once">paiement unique, accès immédiat</div>
+      <button class="summary-pay-btn" onclick="goToPayment()">Payer et recevoir mon pack</button>
+      <div style="margin-top:16px;font-size:.8rem;color:var(--muted)">Paiement sécurisé Stripe · Remboursement 7j sans conditions</div>
+      <div style="margin-top:12px"><button onclick="backToDiag()" style="background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;text-decoration:underline">Modifier mes réponses</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SUCCESS OVERLAY
+══════════════════════════════════════ -->
+<div id="success-overlay" class="hidden">
+  <div class="success-inner">
+    <div class="success-badge">&#10003; Paiement confirmé</div>
+    <h2>Ton pack SaaS est prêt.</h2>
+    <p class="s-sub">Copie les prompts ci-dessous dans Claude Code et suis les étapes dans l'ordre. Ton SaaS va prendre vie.</p>
+    <div id="prompts-output"></div>
+    <div class="next-steps">
+      <h3>Les prochaines étapes</h3>
+      <div class="steps-list">
+        <div class="nstep"><div class="nstep-num">1</div><div class="nstep-text"><h4>Installe Claude Code</h4><p>Télécharge Claude Code sur claude.ai/code. Configure ton API key Anthropic.</p></div></div>
+        <div class="nstep"><div class="nstep-num">2</div><div class="nstep-text"><h4>Colle le Prompt Principal</h4><p>Dans un nouveau projet Claude Code, colle le "Prompt Maître" en premier. Laisse-le analyser.</p></div></div>
+        <div class="nstep"><div class="nstep-num">3</div><div class="nstep-text"><h4>Suis les 7 phases de build</h4><p>Utilise chaque prompt dans l'ordre : architecture, BDD, auth, features, design, paiement, déploiement.</p></div></div>
+        <div class="nstep"><div class="nstep-num">4</div><div class="nstep-text"><h4>Déploie sur Vercel ou Railway</h4><p>Un commit, une commande. Ton SaaS est en ligne. Configure ton domaine.</p></div></div>
+        <div class="nstep"><div class="nstep-num">5</div><div class="nstep-text"><h4>Lance et itère</h4><p>Partage le lien. Collecte les retours. Repasse dans Claude Code pour itérer. Répète.</p></div></div>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding:24px;border:1px solid var(--border);border-radius:var(--r);background:var(--card);text-align:center">
+      <p style="font-size:.9rem;color:var(--muted)">Une question ? On est là 30 jours.</p>
+      <a href="mailto:contact@holasaas.ai" style="color:var(--accent);font-weight:600">contact@holasaas.ai</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ══════════════════════════════════════
+// QUESTIONS DATA
+// ══════════════════════════════════════
+const SECTIONS = [
+  { id:1, name:"Vision & Marché" },
+  { id:2, name:"Produit" },
+  { id:3, name:"Direction Artistique" },
+  { id:4, name:"Cadre Juridique" },
+  { id:5, name:"Ton Profil" },
+  { id:6, name:"Infrastructure" }
+];
+
+const QUESTIONS = [
+// ── SECTION 1 : Vision & Marché ──
+{id:1,s:1,q:"Quel problème précis ton SaaS résout-il ?",sub:"Sois spécifique. Le problème est le fondement de tout ce qu'on va construire.",type:"textarea",placeholder:"Ex : Les freelances perdent 5h/semaine à relancer leurs clients pour les paiements en retard et n'ont aucun outil simple pour automatiser ça..."},
+{id:2,s:1,q:"À qui s'adresse-t-il exactement ?",sub:"Sélectionne tout ce qui correspond, puis précise si besoin.",type:"multiselect-cards",cols:3,options:[{v:"freelance",l:"Freelance / Indépendant"},{v:"startup",l:"Startup"},{v:"pme",l:"PME (1-250 salariés)"},{v:"grand-compte",l:"Grande entreprise"},{v:"particulier",l:"Grand public / B2C"},{v:"asso",l:"Association / ONG"}],precision:true,precisionLabel:"Précise ta cible idéale (secteur, âge, métier...)"},
+{id:3,s:1,q:"Pourquoi toi sur ce sujet ?",sub:"Expérience perso, expertise métier, vécu du problème... Ta légitimité rassure les utilisateurs.",type:"textarea",placeholder:"Ex : J'ai été freelance 5 ans et j'ai personnellement perdu 12 000€ en impayés non relancés..."},
+{id:4,s:1,q:"Cite tes 2 ou 3 concurrents directs ou indirects.",sub:"Même si tu n'en as pas de directs, cite des alternatives que ta cible utilise aujourd'hui.",type:"text-fields",fields:["Concurrent 1","Concurrent 2","Concurrent 3"]},
+{id:5,s:1,q:"Quelle est ta proposition de valeur unique ?",sub:"Pourquoi un utilisateur te choisit TOI plutôt qu'un concurrent ou que ne rien faire ?",type:"textarea",placeholder:"Ex : Contrairement à X, on automatise les relances sans que l'utilisateur ait à configurer quoi que ce soit..."},
+{id:6,s:1,q:"Ton marché cible ?",sub:"À qui vends-tu principalement ?",type:"single-card",cols:3,options:[{v:"b2b",l:"B2B",desc:"Tu vends à des entreprises"},{v:"b2c",l:"B2C",desc:"Tu vends à des particuliers"},{v:"b2b2c",l:"B2B2C",desc:"Les deux à la fois"}]},
+{id:7,s:1,q:"Ton modèle de monétisation ?",sub:"Comment ton SaaS gagne de l'argent ? Plusieurs réponses possibles.",type:"multiselect-cards",cols:2,options:[{v:"abonnement",l:"Abonnement mensuel/annuel"},{v:"one-shot",l:"Paiement unique"},{v:"freemium",l:"Freemium (gratuit + payant)"},{v:"usage",l:"Pay-as-you-go (usage)"},{v:"commission",l:"Commission sur transaction"},{v:"marketplace",l:"Marketplace (double-sided)"}]},
+{id:8,s:1,q:"Ambition utilisateurs à 12 mois ?",sub:"Ordre de grandeur. Ça influence l'architecture.",type:"slider",min:0,max:10000,step:100,defaultVal:500,unit:"utilisateurs",labels:["0","500","2k","5k","10k+"]},
+{id:9,s:1,q:"Et ton objectif de revenus récurrents (MRR) à 12 mois ?",sub:"Monthly Recurring Revenue, ton revenu mensuel cible.",type:"slider",min:0,max:50000,step:500,defaultVal:2000,unit:"€/mois",labels:["0","1k","5k","20k","50k+"]},
+{id:10,s:1,q:"Ce projet est...",sub:"Ça influence les choix de stack et de scalabilité.",type:"toggle",options:[{v:"side",l:"Un side project (à côté)"},{v:"main",l:"Mon activité principale"}]},
+
+// ── SECTION 2 : Produit ──
+{id:11,s:2,q:"Tu travailles seul ou en équipe ?",sub:"",type:"toggle",options:[{v:"solo",l:"Seul"},{v:"equipe",l:"En équipe"}],precision:true,precisionLabel:"Si en équipe, combien de personnes ?"},
+{id:12,s:2,q:"Décris le parcours utilisateur principal de A à Z.",sub:"Depuis l'arrivée sur ton SaaS jusqu'au résultat qu'il obtient. Étape par étape.",type:"textarea",placeholder:"1. L'utilisateur s'inscrit\n2. Il connecte son compte bancaire\n3. Il voit ses impayés listés automatiquement\n4. Il active les relances auto\n5. Il reçoit une notification à chaque paiement reçu..."},
+{id:13,s:2,q:"Quelles sont les 5 fonctionnalités indispensables au MVP ?",sub:"Tape une fonctionnalité et appuie sur Entrée pour l'ajouter. Reste focus sur le strict nécessaire.",type:"tags",placeholder:"Ex: tableau de bord analytics..."},
+{id:14,s:2,q:"Fonctionnalités reportées à la v2 ?",sub:"Ce que tu veux mais qui n'est pas bloquant pour le lancement.",type:"tags",placeholder:"Ex: app mobile, API publique..."},
+{id:15,s:2,q:"Tu as besoin de comptes utilisateurs avec authentification ?",sub:"",type:"single-card",cols:3,options:[{v:"oui",l:"Oui, obligatoire"},{v:"non",l:"Non, pas nécessaire"},{v:"plus-tard",l:"Peut-être en v2"}]},
+{id:16,s:2,q:"Y a-t-il plusieurs rôles utilisateurs dans ton SaaS ?",sub:"Sélectionne tous les rôles qui existent dans ton produit.",type:"multiselect-cards",cols:3,options:[{v:"admin",l:"Administrateur"},{v:"user",l:"Utilisateur standard"},{v:"manager",l:"Manager / Chef d'équipe"},{v:"invite",l:"Invité (lecture seule)"},{v:"client",l:"Client externe"},{v:"super-admin",l:"Super admin (toi)"}],precision:true,precisionLabel:"Autres rôles spécifiques à ton produit ?"},
+{id:17,s:2,q:"Complexité du dashboard admin ?",sub:"",type:"slider",min:0,max:100,step:10,defaultVal:50,unit:"",labels:["Simple (stats basiques)","","","","Avancé (analytics, gestion complète)"]},
+{id:18,s:2,q:"Notifications nécessaires dans ton SaaS ?",sub:"Sélectionne tout ce dont tu as besoin.",type:"multiselect-cards",cols:2,options:[{v:"email",l:"Emails transactionnels"},{v:"sms",l:"SMS"},{v:"push",l:"Push notifications (mobile)"},{v:"in-app",l:"Notifications in-app"},{v:"slack",l:"Alertes Slack / Teams"},{v:"aucune",l:"Pas de notifications"}]},
+{id:19,s:2,q:"Mode multi-tenant ?",sub:"Chaque client a-t-il son propre espace de données totalement isolé ?",type:"single-card",cols:3,options:[{v:"oui",l:"Oui, nécessaire"},{v:"non",l:"Non, espace partagé"},{v:"nsp",l:"Je ne sais pas"}]},
+{id:20,s:2,q:"API publique pour des intégrations tierces ?",sub:"Des clients ou partenaires pourront-ils connecter ton SaaS à leurs outils ?",type:"single-card",cols:3,options:[{v:"oui",l:"Oui, dès le MVP"},{v:"non",l:"Non"},{v:"plus-tard",l:"En v2 seulement"}]},
+{id:21,s:2,q:"Intégrations tierces nécessaires dans ton SaaS ?",sub:"Sélectionne tout ce dont tu as besoin.",type:"icon-grid",options:[{v:"stripe",l:"Stripe"},{v:"paypal",l:"PayPal"},{v:"google",l:"Google"},{v:"calendly",l:"Calendly"},{v:"slack",l:"Slack"},{v:"notion",l:"Notion"},{v:"airtable",l:"Airtable"},{v:"zapier",l:"Zapier"},{v:"hubspot",l:"HubSpot"},{v:"mailchimp",l:"Mailchimp"},{v:"sendgrid",l:"SendGrid"},{v:"twilio",l:"Twilio"},{v:"aws",l:"AWS S3"},{v:"openai",l:"OpenAI"},{v:"anthropic",l:"Anthropic"}],precision:true,precisionLabel:"Autres intégrations ?"},
+{id:22,s:2,q:"Données sensibles à gérer ?",sub:"Ça a un impact direct sur l'architecture sécurité et le cadre légal.",type:"multiselect-cards",cols:2,options:[{v:"sante",l:"Données de santé (RGPD renforcé)"},{v:"finance",l:"Données financières"},{v:"mineurs",l:"Données concernant des mineurs"},{v:"rh",l:"Données RH / salariés"},{v:"perso",l:"Données personnelles standard"},{v:"aucune",l:"Pas de données sensibles"}]},
+{id:23,s:2,q:"Volume de données estimé dans 12 mois ?",sub:"Ordre de grandeur pour dimensionner la base de données.",type:"single-card",cols:2,options:[{v:"xs",l:"< 1 Go (petit projet)"},{v:"s",l:"1 à 10 Go"},{v:"m",l:"10 à 100 Go"},{v:"l",l:"> 100 Go (gros volume)"}]},
+
+// ── SECTION 3 : Direction Artistique ──
+{id:24,s:3,q:"Style visuel souhaité ?",sub:"Choisis l'ambiance qui correspond le mieux à ton produit et ta cible.",type:"single-card",cols:2,options:[{v:"minimal",l:"Minimaliste",desc:"Épuré, espace blanc, focus contenu"},{v:"bold",l:"Bold / Impactant",desc:"Grands typographies, fort contraste"},{v:"corporate",l:"Corporate / Professionnel",desc:"Sérieux, rassurant, institutionnel"},{v:"playful",l:"Playful / Créatif",desc:"Coloré, fun, illustrations"},{v:"dark",l:"Dark Premium",desc:"Fond sombre, accents lumineux"},{v:"tech",l:"Tech / AI-native",desc:"Moderne, gradients, futuriste"}]},
+{id:25,s:3,q:"Couleurs principales que tu aimes ?",sub:"Sélectionne 1 à 3 couleurs d'accroche, puis indique celles à absolument éviter.",type:"color-picker",precision:true,precisionLabel:"Couleurs à éviter absolument ?"},
+{id:26,s:3,q:"3 produits ou sites dont tu aimes le design",sub:"Peu importe le secteur. C'est l'ambiance visuelle qui compte.",type:"text-fields",fields:["Référence 1 (URL ou nom)","Référence 2","Référence 3"]},
+{id:27,s:3,q:"Tu as déjà un logo ou une charte graphique ?",sub:"",type:"single-card",cols:2,options:[{v:"oui-complet",l:"Oui, logo + charte complète"},{v:"oui-logo",l:"Oui, un logo seulement"},{v:"non",l:"Non, zéro identité visuelle"},{v:"wip",l:"En cours de création"}]},
+{id:28,s:3,q:"Préférence typographique ?",sub:"Le style de police donne le ton à tout le produit.",type:"single-card",cols:2,options:[{v:"moderne",l:"Moderne & Géométrique",desc:"Inter, DM Sans, Plus Jakarta"},{v:"classique",l:"Classique & Serif",desc:"Playfair, Lora, Georgia"},{v:"tech",l:"Tech & Monospace",desc:"Space Grotesk, JetBrains, Mono"},{v:"humaine",l:"Humaine & Ronde",desc:"Nunito, Quicksand, Poppins"},{v:"nsp",l:"Pas de préférence",desc:"Je fais confiance à l'IA"}]},
+{id:29,s:3,q:"Mobile-first ou Desktop-first ?",sub:"Par où commencer le design ? Ça définit l'architecture CSS.",type:"toggle",options:[{v:"mobile",l:"Mobile-first"},{v:"desktop",l:"Desktop-first"}]},
+{id:30,s:3,q:"Mode d'affichage ?",sub:"",type:"single-card",cols:3,options:[{v:"dark",l:"Dark mode uniquement"},{v:"light",l:"Light mode uniquement"},{v:"both",l:"Les deux (switch)"}]},
+{id:31,s:3,q:"Densité de l'interface ?",sub:"",type:"slider",min:0,max:100,step:10,defaultVal:40,unit:"",labels:["Aéré & épuré","","","","Dense & riche en info"]},
+{id:32,s:3,q:"Langue(s) de l'interface ?",sub:"Sélectionne toutes les langues nécessaires au lancement.",type:"multiselect-cards",cols:3,options:[{v:"fr",l:"Français"},{v:"en",l:"Anglais"},{v:"es",l:"Espagnol"},{v:"de",l:"Allemand"},{v:"it",l:"Italien"},{v:"pt",l:"Portugais"}]},
+{id:33,s:3,q:"Éléments visuels à inclure dans le SaaS ?",sub:"",type:"multiselect-cards",cols:2,options:[{v:"illustrations",l:"Illustrations (SVG / dessin)"},{v:"icones",l:"Pack d'icônes"},{v:"photos",l:"Photos (unsplash-style)"},{v:"animations",l:"Animations (Framer Motion)"},{v:"3d",l:"Éléments 3D"},{v:"aucun",l:"Visuel épuré uniquement"}]},
+
+// ── SECTION 4 : Cadre Juridique ──
+{id:34,s:4,q:"Dans quel pays est basée ton activité ?",sub:"",type:"single-card",cols:3,options:[{v:"france",l:"France"},{v:"europe",l:"Europe (hors France)"},{v:"autre",l:"Hors Europe"}],precision:true,precisionLabel:"Précise le pays si hors France"},
+{id:35,s:4,q:"Quelle est ta structure juridique ?",sub:"",type:"single-card",cols:3,options:[{v:"ae",l:"Auto-entrepreneur"},{v:"sasu",l:"SASU"},{v:"sas",l:"SAS"},{v:"sarl",l:"SARL"},{v:"eurl",l:"EURL"},{v:"autre",l:"Autre"}]},
+{id:36,s:4,q:"Tu as un numéro de TVA intracommunautaire ?",sub:"",type:"single-card",cols:3,options:[{v:"oui",l:"Oui"},{v:"non",l:"Non"},{v:"en-cours",l:"En cours d'obtention"}]},
+{id:37,s:4,q:"Tu vends dans quels pays ?",sub:"",type:"multiselect-cards",cols:3,options:[{v:"france",l:"France uniquement"},{v:"europe",l:"Europe (UE)"},{v:"monde",l:"Monde entier"}]},
+{id:38,s:4,q:"Ton SaaS collecte-t-il des données personnelles ?",sub:"Nom, email, adresse, comportement, localisation, etc.",type:"single-card",cols:3,options:[{v:"oui",l:"Oui, clairement"},{v:"partiel",l:"Partiellement"},{v:"non",l:"Non"}]},
+{id:39,s:4,q:"Tu as besoin d'un bandeau cookies et d'une gestion RGPD ?",sub:"Obligatoire si tu es en Europe et que tu collectes des données.",type:"single-card",cols:2,options:[{v:"oui",l:"Oui, à intégrer dans le SaaS"},{v:"non",l:"Non, pas nécessaire"}]},
+{id:40,s:4,q:"Tu opères dans un secteur réglementé ?",sub:"Certains secteurs ont des obligations légales supplémentaires.",type:"multiselect-cards",cols:3,options:[{v:"sante",l:"Santé / Médical"},{v:"finance",l:"Finance / Assurance"},{v:"enfants",l:"Produits pour mineurs"},{v:"immobilier",l:"Immobilier"},{v:"rh",l:"RH / Recrutement"},{v:"aucun",l:"Aucun secteur réglementé"}]},
+{id:41,s:4,q:"Les CGU et CGV doivent-elles être intégrées dans le SaaS ?",sub:"Acceptation obligatoire à l'inscription, espace légal dans l'app...",type:"single-card",cols:2,options:[{v:"oui",l:"Oui, intégrées et obligatoires"},{v:"pages-seules",l:"Pages seules, sans intégration"},{v:"non",l:"Non"}]},
+{id:42,s:4,q:"Facturation automatique et PDF de factures ?",sub:"Génération de factures à chaque paiement, envoi par email...",type:"single-card",cols:2,options:[{v:"oui",l:"Oui, automatique via Stripe"},{v:"manuel",l:"Manuel (je gère ça)"},{v:"non",l:"Non nécessaire"}]},
+{id:43,s:4,q:"Signatures électroniques nécessaires ?",sub:"Contrats, devis, accords à signer dans l'application.",type:"single-card",cols:3,options:[{v:"oui",l:"Oui"},{v:"non",l:"Non"},{v:"plus-tard",l:"En v2"}]},
+
+// ── SECTION 5 : Ton Profil ──
+{id:44,s:5,q:"Décris-toi en 3 mots.",sub:"Ces mots vont influencer le ton, la voix et l'attitude du produit.",type:"text-fields",fields:["Mot 1","Mot 2","Mot 3"]},
+{id:45,s:5,q:"Tu es plutôt...",sub:"",type:"slider",min:0,max:100,step:10,defaultVal:50,unit:"",labels:["Pur visionnaire (idées, cap, vision)","","","","Pur exécutant (action, détails, livraison)"]},
+{id:46,s:5,q:"Ta plus grande crainte pour ce projet ?",sub:"La vraie. Pas la réponse policée.",type:"multiselect-cards",cols:2,options:[{v:"echec",l:"Echec commercial (personne n'achète)"},{v:"technique",l:"Problème technique (ca plante)"},{v:"temps",l:"Manque de temps pour continuer"},{v:"concurrence",l:"Un concurrent arrive avant moi"},{v:"qualite",l:"La qualité ne sera pas au rendez-vous"},{v:"autre",l:"Autre"}],precision:true,precisionLabel:"Précise si tu veux..."},
+{id:47,s:5,q:"Ta motivation principale ?",sub:"",type:"multiselect-cards",cols:2,options:[{v:"liberte",l:"Liberte financière"},{v:"impact",l:"Avoir un impact"},{v:"passion",l:"Passion pour le produit"},{v:"challenge",l:"Le challenge technique"},{v:"revenu",l:"Revenu passif"},{v:"reconnu",l:"Être reconnu dans mon domaine"}]},
+{id:48,s:5,q:"Tu as déjà lancé des projets ou startups ?",sub:"",type:"single-card",cols:2,options:[{v:"jamais",l:"Jamais, c'est mon premier"},{v:"side",l:"Quelques side projects"},{v:"startup",l:"Une startup (ou plus)"},{v:"serial",l:"Serial entrepreneur"}]},
+{id:49,s:5,q:"Comment tu gères les retours négatifs de tes utilisateurs ?",sub:"",type:"slider",min:0,max:100,step:10,defaultVal:60,unit:"",labels:["Ca me touche profondément","","","","Je rebondis très vite"]},
+{id:50,s:5,q:"Le ton de ton produit avec tes utilisateurs ?",sub:"",type:"slider",min:0,max:100,step:10,defaultVal:40,unit:"",labels:["Très formel / professionnel","","","","Super décontracté / ami"]},
+{id:51,s:5,q:"Si ton SaaS était une personne, ce serait qui ou quoi ?",sub:"Exercice créatif libre. Ca aide à définir la personnalité produit.",type:"textarea",placeholder:"Ex : Un assistant ultra-efficace, un peu comme un assistant de direction qui ne dort jamais, discret mais toujours là quand il faut..."},
+
+// ── SECTION 6 : Infrastructure ──
+{id:52,s:6,q:"Préférence de stack technique ?",sub:"Sélectionne si tu as une préférence, sinon on recommande.",type:"multiselect-cards",cols:3,options:[{v:"nextjs",l:"Next.js (React)"},{v:"nuxt",l:"Nuxt (Vue)"},{v:"laravel",l:"Laravel (PHP)"},{v:"django",l:"Django (Python)"},{v:"express",l:"Node / Express"},{v:"nsp",l:"Je délègue totalement"}]},
+{id:53,s:6,q:"Préférence d'hébergement ?",sub:"",type:"single-card",cols:3,options:[{v:"vercel",l:"Vercel"},{v:"railway",l:"Railway"},{v:"render",l:"Render"},{v:"ovh",l:"OVH"},{v:"aws",l:"AWS"},{v:"nsp",l:"Pas de préférence"}]},
+{id:54,s:6,q:"Tu as déjà un nom de domaine acheté ?",sub:"",type:"single-card",cols:2,options:[{v:"oui",l:"Oui"},{v:"non",l:"Non, pas encore"}],precision:true,precisionLabel:"Si oui, quel est-il ?"},
+{id:55,s:6,q:"Base de données préférée ?",sub:"",type:"single-card",cols:3,options:[{v:"supabase",l:"Supabase (PostgreSQL)"},{v:"postgres",l:"PostgreSQL"},{v:"mysql",l:"MySQL"},{v:"mongo",l:"MongoDB"},{v:"planetscale",l:"PlanetScale"},{v:"nsp",l:"Pas de préférence"}]},
+{id:56,s:6,q:"Niveau de scalabilité dès le départ ?",sub:"Ca influence fortement les choix d'architecture.",type:"slider",min:0,max:100,step:10,defaultVal:30,unit:"",labels:["MVP simple (< 1 000 users)","","","","Architecture hyper-scalable (> 100k users)"]},
+{id:57,s:6,q:"Monitoring et alertes dès le MVP ?",sub:"Sentry, Datadog, Uptime Robot, alertes email en cas d'erreur...",type:"single-card",cols:3,options:[{v:"oui",l:"Oui, indispensable"},{v:"plus-tard",l:"En v2"},{v:"non",l:"Non"}]},
+{id:58,s:6,q:"Objectif de performance côté utilisateur ?",sub:"Temps de chargement, réactivité de l'interface.",type:"slider",min:0,max:100,step:10,defaultVal:60,unit:"",labels:["Fonctionnel (< 3s)","","","","Ultra-rapide (< 500ms, optimisé"]},
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+const STRIPE_URL = "https://buy.stripe.com/dRmcN6bLnbtOe0wgEZ8Zq00";
+let qIndex = 0;
+let answers = {};
+
+// ══════════════════════════════════════
+// LANDING / OVERLAY CONTROL
+// ══════════════════════════════════════
+function startDiag(){
+  const p = new URLSearchParams(location.search);
+  if(p.get("success")==="1"){ showSuccess(); return; }
+  startOnboarding();
+}
+function startDiagForReal(){
+  document.getElementById("diag-overlay").classList.remove("hidden");
+  document.body.style.overflow="hidden";
+  buildTabs();
+  renderQ();
+}
+
+// ══════════════════════════════════════
+// ONBOARDING
+// ══════════════════════════════════════
+const OB_SCREENS = [
+  {
+    eyebrow: "Bienvenue",
+    title: "Ton SaaS commence ici.",
+    sub: "La façon la plus rapide de transformer une idée en application fonctionnelle, sans recruter de développeur.",
+    duration: 3500,
+    skippable: true
+  },
+  {
+    eyebrow: "Comment ça marche",
+    title: "Tu réponds. On génère.",
+    sub: "Tu renseignes ton projet en répondant à un diagnostic complet. On produit un pack sur mesure prêt à être utilisé dans Claude Code.",
+    duration: 4000,
+    skippable: true
+  },
+  {
+    eyebrow: "Avant de commencer",
+    title: "Prévois 20 à 30 minutes.",
+    sub: null,
+    warning: "<strong>Le diagnostic est complet et structuré en sections.</strong> Plus tes réponses sont précises, meilleur sera le pack généré. Prends le temps qu'il faut.",
+    duration: null,
+    skippable: false
+  },
+  {
+    eyebrow: null,
+    title: "C'est parti.",
+    sub: "Le diagnostic se lance.",
+    duration: 1800,
+    skippable: false,
+    last: true
+  }
+];
+
+let obIndex = 0;
+let obTimer = null;
+
+function startOnboarding(){
+  obIndex = 0;
+  document.getElementById("onboarding-overlay").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  renderObScreen();
+}
+
+function renderObScreen(){
+  const overlay = document.getElementById("onboarding-overlay");
+  const s = OB_SCREENS[obIndex];
+
+  const dots = OB_SCREENS.map((_,i) =>
+    '<div class="ob-dot ' + (i===obIndex?'active':'') + '"></div>'
+  ).join('');
+
+  const eyebrowHTML = s.eyebrow ? '<div class="ob-eyebrow">' + s.eyebrow + '</div>' : '';
+  const subHTML = s.sub ? '<p class="ob-sub">' + s.sub + '</p>' : '';
+  const warningHTML = s.warning ? '<div class="ob-warning"><p>' + s.warning + '</p></div>' : '';
+  const timerHTML = s.duration ? '<div class="ob-timer"><div class="ob-timer-bar" id="ob-bar" style="transition:width ' + s.duration + 'ms linear"></div></div>' : '';
+
+  let actionsHTML = '';
+  if(!s.last){
+    if(s.skippable){
+      actionsHTML = '<button class="ob-btn-primary" onclick="obNext()">Suivant</button><button class="ob-btn-skip" onclick="obNext()">Passer</button>';
+    } else {
+      actionsHTML = '<button class="ob-btn-primary" onclick="obNext()">Je suis prêt</button>';
+    }
+  }
+
+  overlay.innerHTML =
+    '<div class="ob-screen active">' +
+      '<div class="ob-dots">' + dots + '</div>' +
+      eyebrowHTML +
+      '<h2 class="ob-title">' + s.title + '</h2>' +
+      subHTML +
+      warningHTML +
+      timerHTML +
+      '<div class="ob-actions">' + actionsHTML + '</div>' +
+    '</div>';
+
+  clearTimeout(obTimer);
+  if(s.duration){
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        const bar = document.getElementById("ob-bar");
+        if(bar) bar.style.width = "100%";
+      });
+    });
+    obTimer = setTimeout(s.last ? obFinish : obNext, s.duration);
+  }
+}
+
+function obNext(){
+  clearTimeout(obTimer);
+  obIndex++;
+  if(obIndex >= OB_SCREENS.length){ obFinish(); return; }
+  renderObScreen();
+}
+
+function obFinish(){
+  clearTimeout(obTimer);
+  document.getElementById("onboarding-overlay").classList.add("hidden");
+  startDiagForReal();
+}
+function closeDiag(){
+  document.getElementById("diag-overlay").classList.add("hidden");
+  document.body.style.overflow="";
+}
+function backToDiag(){
+  document.getElementById("summary-overlay").classList.add("hidden");
+  document.getElementById("diag-overlay").classList.remove("hidden");
+  qIndex = QUESTIONS.length-1;
+  renderQ();
+}
+
+// ══════════════════════════════════════
+// TABS
+// ══════════════════════════════════════
+function buildTabs(){
+  const wrap = document.getElementById("diag-tabs");
+  wrap.innerHTML = SECTIONS.map(s=>`<div class="diag-section-tab" id="tab-${s.id}">${s.name}</div>`).join("");
+}
+function updateTabs(currentS){
+  SECTIONS.forEach(s=>{
+    const el = document.getElementById(`tab-${s.id}`);
+    if(!el) return;
+    el.className = "diag-section-tab";
+    const maxQ = QUESTIONS.filter(q=>q.s===s.id);
+    const answered = maxQ.filter(q=>answers[q.id]!==undefined && answers[q.id]!=="").length;
+    if(s.id === currentS) el.classList.add("active");
+    else if(answered === maxQ.length) el.classList.add("done");
+  });
+}
+
+// ══════════════════════════════════════
+// RENDER QUESTION
+// ══════════════════════════════════════
+function renderQ(){
+  const q = QUESTIONS[qIndex];
+  const total = QUESTIONS.length;
+  const pct = Math.round(((qIndex)/(total))*100);
+  document.getElementById("diag-fill").style.width = pct+"%";
+  document.getElementById("diag-section-name").textContent = SECTIONS.find(s=>s.id===q.s).name;
+  document.getElementById("diag-q-counter").textContent = `Question ${qIndex+1} / ${total}`;
+  document.getElementById("q-nav-counter").textContent = `${qIndex+1} / ${total}`;
+  document.getElementById("btn-back").style.visibility = qIndex===0?"hidden":"visible";
+  const isLast = qIndex === total-1;
+  document.getElementById("btn-next").innerHTML = isLast ? "Voir mon récapitulatif &#8594;" : "Suivant <span>&#8594;</span>";
+  updateTabs(q.s);
+
+  const card = document.getElementById("q-card");
+  card.innerHTML = `
+    <div class="q-section-label">${SECTIONS.find(s=>s.id===q.s).name}</div>
+    <div class="q-text">${q.q}</div>
+    ${q.sub?`<div class="q-sub">${q.sub}</div>`:""}
+    <div id="q-input-zone">${renderInput(q)}</div>
+    ${q.precision?`<div class="precision-wrap"><div class="precision-label">${q.precisionLabel}</div><input class="q-input" id="q-precision-${q.id}" placeholder="Précision optionnelle..." value="${answers['p_'+q.id]||''}"></div>`:""}
+  `;
+  // Restore saved answer
+  restoreAnswer(q);
+  // Attach events
+  attachEvents(q);
+}
+
+function renderInput(q){
+  const saved = answers[q.id];
+  switch(q.type){
+    case "textarea":
+      return `<textarea class="q-textarea" id="q-${q.id}" placeholder="${q.placeholder||''}">${saved||''}</textarea>`;
+    case "multiselect-cards":{
+      const sv = saved||[];
+      return `<div class="cards-grid cols${q.cols||3}">${q.options.map(o=>`
+        <div class="q-card${sv.includes(o.v)?" selected":""}" data-v="${o.v}" onclick="toggleCard(this,'${q.id}',true)">
+          <span>${o.l}</span>
+        </div>`).join("")}</div>`;
+    }
+    case "single-card":{
+      return `<div class="cards-grid cols${q.cols||3}">${q.options.map(o=>`
+        <div class="q-card${saved===o.v?" selected":""}" data-v="${o.v}" onclick="toggleCard(this,'${q.id}',false)">
+          <div><div style="font-weight:600">${o.l}</div>${o.desc?`<div style="font-size:.78rem;color:var(--muted);margin-top:3px">${o.desc}</div>`:""}</div>
+        </div>`).join("")}</div>`;
+    }
+    case "toggle":{
+      return `<div class="toggle-wrap">${q.options.map(o=>`
+        <button class="toggle-btn${saved===o.v?" selected":""}" onclick="selectToggle(this,'${q.id}','${o.v}')">${o.l}</button>`).join("")}</div>`;
+    }
+    case "slider":{
+      const v = saved!==undefined ? saved : q.defaultVal;
+      return `<div class="slider-wrap">
+        <div class="slider-labels">${q.labels.map(l=>`<span>${l}</span>`).join("")}</div>
+        <input type="range" class="q-slider" id="q-${q.id}" min="${q.min}" max="${q.max}" step="${q.step}" value="${v}" oninput="updateSlider(this,'${q.id}')">
+        <div class="slider-value" id="sv-${q.id}">${formatSliderVal(v,q)}</div>
+      </div>`;
+    }
+    case "tags":{
+      const tags = saved||[];
+      return `<div class="tags-input-wrap" id="tw-${q.id}" onclick="focusTagInput('${q.id}')">
+        ${tags.map(t=>`<span class="tag-pill">${t}<span class="tag-remove" onclick="removeTag(event,'${q.id}','${t}')">&#215;</span></span>`).join("")}
+        <input class="tag-input" id="ti-${q.id}" placeholder="${q.placeholder||'Tape et appuie sur Entrée...'}">
+      </div>
+      <div class="tag-hint">Appuie sur Entrée pour ajouter</div>`;
+    }
+    case "text-fields":{
+      const sv = saved||{};
+      return `<div class="text-fields">${q.fields.map((f,i)=>`
+        <input class="q-input" id="q-${q.id}-${i}" placeholder="${f}" value="${sv[i]||''}">`).join("")}</div>`;
+    }
+    case "color-picker":{
+      const colors=["#ef4444","#f97316","#f59e0b","#84cc16","#22c55e","#10b981","#06b6d4","#3b82f6","#6366f1","#8b5cf6","#a855f7","#ec4899","#f43f5e","#14b8a6","#0ea5e9","#7c3aed","#1d4ed8","#065f46","#92400e","#1e293b"];
+      const sv = saved||[];
+      return `<div class="color-palette">${colors.map(c=>`
+        <div class="color-swatch${sv.includes(c)?" selected":""}" style="background:${c}" data-v="${c}" onclick="toggleColor(this,'${q.id}','${c}')"></div>`).join("")}</div>`;
+    }
+    case "icon-grid":{
+      const sv = saved||[];
+      return `<div class="icon-grid">${q.options.map(o=>`
+        <div class="icon-tile${sv.includes(o.v)?" selected":""}" data-v="${o.v}" onclick="toggleIcon(this,'${q.id}','${o.v}')">
+          <span class="ti">${iconFor(o.v)}</span>${o.l}
+        </div>`).join("")}</div>`;
+    }
+    default: return "";
+  }
+}
+
+function iconFor(v){
+  const m={stripe:"&#128178;",paypal:"&#128179;",google:"G",calendly:"&#128197;",slack:"&#128172;",notion:"&#128203;",airtable:"&#9000;",zapier:"&#9889;",hubspot:"&#128101;",mailchimp:"&#128140;",sendgrid:"&#128140;",twilio:"&#128241;",aws:"&#9729;",openai:"&#10024;",anthropic:"&#129302;"};
+  return m[v]||"&#9632;";
+}
+
+function formatSliderVal(v,q){
+  if(q.unit==="utilisateurs") return `<span>${Number(v).toLocaleString('fr')} ${q.unit}</span>`;
+  if(q.unit==="€/mois") return `<span>${Number(v).toLocaleString('fr')} ${q.unit}</span>`;
+  return `<span>${v}</span>`;
+}
+
+// ══════════════════════════════════════
+// EVENTS
+// ══════════════════════════════════════
+function attachEvents(q){
+  if(q.type==="textarea"){
+    const el=document.getElementById(`q-${q.id}`);
+    if(el) el.oninput=()=>{ answers[q.id]=el.value; };
+  }
+  if(q.type==="text-fields"){
+    q.fields.forEach((_,i)=>{
+      const el=document.getElementById(`q-${q.id}-${i}`);
+      if(el) el.oninput=()=>{
+        if(!answers[q.id]) answers[q.id]={};
+        answers[q.id][i]=el.value;
+      };
+    });
+  }
+  if(q.type==="slider"){
+    answers[q.id] = answers[q.id]!==undefined ? answers[q.id] : q.defaultVal;
+  }
+  if(q.type==="tags"){
+    const ti=document.getElementById(`ti-${q.id}`);
+    if(ti) ti.addEventListener("keydown",e=>{
+      if(e.key==="Enter"&&ti.value.trim()){
+        e.preventDefault();
+        const t=ti.value.trim();
+        if(!answers[q.id]) answers[q.id]=[];
+        if(!answers[q.id].includes(t)){ answers[q.id].push(t); }
+        ti.value="";
+        renderQ();
+      }
+    });
+  }
+  if(q.precision){
+    const pi=document.getElementById(`q-precision-${q.id}`);
+    if(pi) pi.oninput=()=>{ answers[`p_${q.id}`]=pi.value; };
+  }
+}
+
+function restoreAnswer(q){
+  // Already handled in renderInput for most types
+}
+
+function toggleCard(el, qid, multi){
+  if(multi){
+    el.classList.toggle("selected");
+    const sel=[...el.closest(".cards-grid").querySelectorAll(".q-card.selected")].map(c=>c.dataset.v);
+    answers[qid]=sel;
+  } else {
+    el.closest(".cards-grid").querySelectorAll(".q-card").forEach(c=>c.classList.remove("selected"));
+    el.classList.add("selected");
+    answers[qid]=el.dataset.v;
+  }
+}
+function selectToggle(el,qid,v){
+  el.closest(".toggle-wrap").querySelectorAll(".toggle-btn").forEach(b=>b.classList.remove("selected"));
+  el.classList.add("selected");
+  answers[qid]=v;
+}
+function updateSlider(el,qid){
+  const q=QUESTIONS.find(q=>q.id==qid);
+  answers[qid]=el.value;
+  document.getElementById(`sv-${qid}`).innerHTML=formatSliderVal(el.value,q);
+}
+function toggleColor(el,qid,c){
+  el.classList.toggle("selected");
+  const all=[...document.querySelectorAll(".color-swatch.selected")].map(e=>e.dataset.v);
+  answers[qid]=all;
+}
+function toggleIcon(el,qid,v){
+  el.classList.toggle("selected");
+  if(!answers[qid]) answers[qid]=[];
+  if(answers[qid].includes(v)) answers[qid]=answers[qid].filter(x=>x!==v);
+  else answers[qid].push(v);
+}
+function focusTagInput(qid){ document.getElementById(`ti-${qid}`)?.focus(); }
+function removeTag(e,qid,t){
+  e.stopPropagation();
+  if(answers[qid]) answers[qid]=answers[qid].filter(x=>x!==t);
+  renderQ();
+}
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function nextQ(){
+  // Save slider/textarea if not already
+  const q=QUESTIONS[qIndex];
+  if(q.type==="slider"){
+    const el=document.getElementById(`q-${q.id}`);
+    if(el) answers[q.id]=el.value;
+  }
+  if(q.type==="textarea"){
+    const el=document.getElementById(`q-${q.id}`);
+    if(el) answers[q.id]=el.value;
+  }
+  if(q.type==="text-fields"){
+    q.fields.forEach((_,i)=>{
+      const el=document.getElementById(`q-${q.id}-${i}`);
+      if(el){
+        if(!answers[q.id]) answers[q.id]={};
+        answers[q.id][i]=el.value;
+      }
+    });
+  }
+  if(q.precision){
+    const pi=document.getElementById(`q-precision-${q.id}`);
+    if(pi) answers[`p_${q.id}`]=pi.value;
+  }
+
+  if(qIndex < QUESTIONS.length-1){
+    qIndex++;
+    renderQ();
+    window.scrollTo(0,0);
+  } else {
+    showSummary();
+  }
+}
+function prevQ(){
+  if(qIndex>0){ qIndex--; renderQ(); }
+}
+
+// ══════════════════════════════════════
+// SUMMARY
+// ══════════════════════════════════════
+function showSummary(){
+  document.getElementById("diag-overlay").classList.add("hidden");
+  const so = document.getElementById("summary-overlay");
+  so.classList.remove("hidden");
+  const content = document.getElementById("summary-content");
+  content.innerHTML = SECTIONS.map(sec=>{
+    const qs = QUESTIONS.filter(q=>q.s===sec.id);
+    const rows = qs.map(q=>{
+      let val = formatAnswer(q, answers[q.id]);
+      const prec = answers[`p_${q.id}`];
+      if(prec) val += ` <em style="color:var(--muted);font-size:.82rem">(${prec})</em>`;
+      return `<div class="summary-row"><div class="s-label">${q.q.length>50?q.q.substring(0,47)+"...":q.q}</div><div class="s-val">${val||"<span style='color:var(--muted)'>Non renseigné</span>"}</div></div>`;
+    }).join("");
+    return `<div class="summary-section"><div class="summary-section-head">${sec.name}</div><div class="summary-rows">${rows}</div></div>`;
+  }).join("");
+}
+function formatAnswer(q, val){
+  if(val===undefined||val===null||val==="") return "";
+  if(Array.isArray(val)){
+    if(val.length===0) return "";
+    return val.map(v=>{
+      const opt = q.options?.find(o=>o.v===v);
+      return opt?opt.l:v;
+    }).join(", ");
+  }
+  if(typeof val==="object"){
+    return Object.values(val).filter(Boolean).join(" / ");
+  }
+  if(q.options){
+    const opt = q.options.find(o=>o.v===val);
+    if(opt) return opt.l;
+  }
+  if(q.type==="slider"){
+    if(q.unit) return `${Number(val).toLocaleString('fr')} ${q.unit}`;
+    return val+"%";
+  }
+  return String(val);
+}
+
+// ══════════════════════════════════════
+// PAYMENT
+// ══════════════════════════════════════
+function goToPayment(){
+  try{ localStorage.setItem("holasaas_answers", JSON.stringify(answers)); }catch(e){}
+  window.location.href = STRIPE_URL;
+}
+
+// ══════════════════════════════════════
+// SUCCESS + PROMPT GENERATION
+// ══════════════════════════════════════
+function showSuccess(){
+  document.getElementById("landing").style.display="none";
+  const so = document.getElementById("success-overlay");
+  so.classList.remove("hidden");
+  let a = {};
+  try{ a = JSON.parse(localStorage.getItem("holasaas_answers")||"{}"); }catch(e){}
+  const prompts = generatePrompts(a);
+  const out = document.getElementById("prompts-output");
+  out.innerHTML = prompts.map((p,i)=>`
+    <div class="prompt-block">
+      <div class="prompt-head">
+        <div>
+          <span class="prompt-title">${p.title}</span>
+          <span class="prompt-badge" style="margin-left:10px">${p.badge}</span>
+        </div>
+        <button class="copy-btn" onclick="copyPrompt(this, ${i})">Copier</button>
+      </div>
+      <div class="prompt-content" id="prompt-${i}">${escHtml(p.content)}</div>
+    </div>
+  `).join("");
+  window._prompts = prompts;
+}
+function escHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function copyPrompt(btn, i){
+  navigator.clipboard.writeText(window._prompts[i].content).then(()=>{
+    btn.textContent="Copié !";
+    btn.style.color="var(--success)";
+    setTimeout(()=>{ btn.textContent="Copier"; btn.style.color=""; },2000);
+  });
+}
+
+function generatePrompts(a){
+  const g = (id)=>{
+    const q = QUESTIONS.find(q=>q.id===id);
+    const val = a[id];
+    if(!val && val!==0) return "Non renseigné";
+    return formatAnswer(q, val);
+  };
+  const p = (id) => a[`p_${id}`]||"";
+
+  const masterPrompt = `# HOLASAAS : BRIEF TECHNIQUE COMPLET POUR CLAUDE CODE
+# Généré par le diagnostic HolaSaaS
+
+---
+
+## 1. VISION PRODUIT
+
+### Problème résolu
+${a[1]||"Non renseigné"}
+
+### Cible utilisateur
+${g(2)}${p(2)?"\nPrécision : "+p(2):""}
+
+### Légitimité du fondateur
+${a[3]||"Non renseigné"}
+
+### Concurrents identifiés
+${a[4]?Object.values(a[4]).filter(Boolean).join(", "):"Non renseigné"}
+
+### Proposition de valeur unique
+${a[5]||"Non renseigné"}
+
+### Marché cible
+${g(6)}
+
+### Modèle de monétisation
+${g(7)}
+
+### Ambition 12 mois
+- Utilisateurs : ${g(8)}
+- MRR cible : ${g(9)}
+- Statut : ${g(10)}
+
+---
+
+## 2. PRODUIT & FONCTIONNALITÉS
+
+### Parcours utilisateur principal
+${a[12]||"Non renseigné"}
+
+### Fonctionnalités MVP (non négociables)
+${(a[13]||[]).map((f,i)=>`${i+1}. ${f}`).join("\n")||"Non renseigné"}
+
+### Fonctionnalités v2 (reportées)
+${(a[14]||[]).join(", ")||"Non renseigné"}
+
+### Authentification
+${g(15)}
+
+### Rôles utilisateurs
+${g(16)}${p(16)?"\nRôles additionnels : "+p(16):""}
+
+### Dashboard admin
+Complexité : ${g(17)}
+
+### Notifications
+${g(18)}
+
+### Architecture
+- Multi-tenant : ${g(19)}
+- API publique : ${g(20)}
+- Données sensibles : ${g(22)}
+- Volume estimé : ${g(23)}
+
+### Intégrations tierces requises
+${g(21)}${p(21)?"\nAutres : "+p(21):""}
+
+---
+
+## 3. DIRECTION ARTISTIQUE & DESIGN
+
+### Style visuel
+${g(24)}
+
+### Couleurs
+${g(25)}${p(25)?"\nCouleurs à éviter : "+p(25):""}
+
+### Références design
+${a[26]?Object.values(a[26]).filter(Boolean).join(", "):"Non renseigné"}
+
+### Identité visuelle existante
+${g(27)}
+
+### Typographie
+${g(28)}
+
+### Affichage
+- Priorité : ${g(29)}
+- Mode : ${g(30)}
+- Densité : ${g(31)}
+- Langue(s) : ${g(32)}
+
+### Éléments visuels
+${g(33)}
+
+---
+
+## 4. CADRE JURIDIQUE
+
+### Structure légale
+- Pays : ${g(34)}${p(34)?"\n"+p(34):""}
+- Forme : ${g(35)}
+- TVA intra : ${g(36)}
+- Pays de vente : ${g(37)}
+- Données personnelles : ${g(38)}
+- RGPD/Cookies : ${g(39)}
+- Secteur réglementé : ${g(40)}
+- Intégration CGU/CGV : ${g(41)}
+- Facturation auto : ${g(42)}
+- Signatures électroniques : ${g(43)}
+
+---
+
+## 5. PROFIL DU FONDATEUR
+
+### Personnalité
+Mots-clés : ${a[44]?Object.values(a[44]).filter(Boolean).join(", "):"Non renseigné"}
+Profil : ${g(45)}
+Expérience : ${g(48)}
+
+### Motivations & craintes
+Motivations : ${g(47)}
+Craintes : ${g(46)}${p(46)?"\nPrécision : "+p(46):""}
+
+### Ton avec les utilisateurs
+Ton souhaité : ${g(50)} (score: ${a[50]||50}/100)
+Gestion feedback : ${g(49)}
+
+### Personnalité produit
+${a[51]||"Non renseigné"}
+
+---
+
+## 6. STACK TECHNIQUE RECOMMANDÉE
+
+### Choix du fondateur
+- Stack : ${g(52)}
+- Hébergement : ${g(53)}
+- Domaine : ${g(54)}${p(54)?"\nURL : "+p(54):""}
+- Base de données : ${g(55)}
+- Scalabilité : ${g(56)}
+- Monitoring : ${g(57)}
+- Performance cible : ${g(58)}
+
+---
+
+## 7. INSTRUCTIONS DE BUILD POUR CLAUDE CODE
+
+Tu es un expert full-stack senior. Tu vas construire un SaaS complet et production-ready basé sur le brief ci-dessus.
+
+### Stack recommandée (basée sur les réponses)
+- Frontend : Next.js 14+ avec App Router
+- Backend : API Routes Next.js ou tRPC
+- Base de données : ${(a[55]&&a[55]!=="nsp")?g(55):"Supabase (PostgreSQL)"}
+- Auth : NextAuth.js ou Supabase Auth
+- Paiement : Stripe
+- Emails : Resend ou SendGrid
+- Hébergement : ${(a[53]&&a[53]!=="nsp")?g(53):"Vercel"}
+- Styling : Tailwind CSS
+
+### Ce que tu dois construire
+1. Structure complète du projet avec toutes les configurations
+2. Schéma de base de données complet
+3. Système d'authentification selon les rôles définis
+4. Toutes les fonctionnalités MVP listées ci-dessus
+5. Dashboard admin si requis
+6. Système de notifications défini
+7. Intégrations tierces listées
+8. Design system complet respectant la DA
+9. Pages légales (CGU, CGV, Politique de confidentialité)
+10. Configuration de déploiement
+
+### Contraintes absolues
+- Code production-ready (pas de TODO ni de placeholder)
+- Gestion des erreurs complète
+- Types TypeScript stricts
+- Tests sur les fonctions critiques
+- RGPD compliant si données personnelles collectées
+- Responsive design (${g(29)} prioritaire)
+- Mode ${g(30)}
+
+Commence par créer la structure complète du projet, puis implémente feature par feature dans l'ordre logique.`;
+
+  const promptArchitecture = `# PHASE 1 : ARCHITECTURE & STRUCTURE DU PROJET
+
+Tu es un expert Next.js / TypeScript. Crée la structure complète du projet SaaS en suivant ce brief :
+
+## Contexte produit
+${a[1]||"SaaS défini dans le brief maître"}
+
+## Stack
+- Next.js 14 (App Router)
+- TypeScript strict
+- Tailwind CSS
+- ${(a[55]&&a[55]!=="nsp")?g(55):"Supabase"}
+- Prisma (ORM)
+
+## Ce que tu dois créer maintenant
+1. Structure de dossiers complète (src/app, src/components, src/lib, src/types, src/hooks)
+2. Configuration TypeScript, ESLint, Prettier
+3. Configuration Tailwind avec le design system (couleurs: ${g(25)}, style: ${g(24)})
+4. Variables d'environnement (.env.example avec tous les champs nécessaires)
+5. Schéma Prisma complet avec ces entités :
+   - User (avec rôles : ${g(16)})
+   - Les entités métier liées aux features : ${(a[13]||[]).join(", ")}
+6. Configuration Supabase / base de données
+7. Middleware d'authentification
+8. Layout principal avec navigation
+
+Ne laisse aucun fichier vide. Tout doit être fonctionnel et compilable.`;
+
+  const promptFeatures = `# PHASE 2 : FONCTIONNALITÉS MVP
+
+Sur la base de l'architecture créée en phase 1, implémente maintenant les fonctionnalités MVP dans cet ordre prioritaire :
+
+${(a[13]||[]).map((f,i)=>`## Feature ${i+1} : ${f}
+Implémente cette fonctionnalité de façon complète :
+- Composants React
+- Routes API
+- Logique métier
+- Gestion des erreurs
+- Interface utilisateur selon le style ${g(24)}
+`).join("\n")||"Implémente les fonctionnalités principales décrites dans le brief maître."}
+
+## Contraintes pour chaque feature
+- Types TypeScript complets
+- Validation des données (Zod)
+- Messages d'erreur en ${g(32)||"français"}
+- Responsive (${g(29)} en priorité)
+- Accessible (ARIA labels)
+
+Commence par la feature la plus critique pour l'utilisateur.`;
+
+  return [
+    { title: "Prompt Maître", badge: "Prompt principal", content: masterPrompt },
+    { title: "Phase 1 : Architecture", badge: "Prompt de build", content: promptArchitecture },
+    { title: "Phase 2 : Fonctionnalités MVP", badge: "Prompt de build", content: promptFeatures },
+  ];
+}
+
+// ══════════════════════════════════════
+// FAQ
+// ══════════════════════════════════════
+function toggleFaq(el){
+  const item = el.parentElement;
+  item.classList.toggle("open");
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+window.addEventListener("DOMContentLoaded",()=>{
+  const p = new URLSearchParams(location.search);
+  if(p.get("success")==="1"){ showSuccess(); }
+});
+</script>
+</body>
+</html>
