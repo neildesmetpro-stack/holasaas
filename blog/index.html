@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog HolaSaaS | Conseils pour lancer son SaaS en France</title>
+<meta name="description" content="Conseils concrets pour solopreneurs qui veulent lancer leur SaaS en France : structure juridique, stack technique, validation d'idée, prompts IA.">
+<link rel="canonical" href="https://holasaas.ai/blog/">
+<meta property="og:title" content="Blog HolaSaaS | Conseils pour lancer son SaaS en France">
+<meta property="og:description" content="Conseils concrets pour solopreneurs qui veulent lancer leur SaaS en France : structure juridique, stack technique, validation d'idée, prompts IA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://holasaas.ai/blog/">
+<meta property="og:site_name" content="HolaSaaS">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="../favicon.png">
+<style>
+:root {
+  --bg: #08080f;
+  --bg2: #0f0f1a;
+  --bg3: #141424;
+  --accent: #7c6fff;
+  --accent2: #3b82f6;
+  --accent3: #a78bfa;
+  --text: #f0f0ff;
+  --muted: #8888aa;
+  --border: rgba(124,111,255,0.18);
+  --card: rgba(255,255,255,0.04);
+  --glass: rgba(124,111,255,0.08);
+  --r: 16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;backdrop-filter:blur(20px);background:rgba(8,8,15,0.7);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s;font-weight:500}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;transition:opacity .2s,transform .2s}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px)}
+
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+.blog-header{padding:140px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.blog-header-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(124,111,255,0.12) 0%,transparent 70%);pointer-events:none}
+.blog-label{font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.blog-header h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.blog-header h1 .grad{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.blog-header p{font-size:1.05rem;color:var(--muted);max-width:520px;margin:0 auto}
+
+.articles-section{padding:40px 24px 100px}
+.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-top:0}
+.article-card{border:1px solid var(--border);border-radius:var(--r);background:var(--card);overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
+.article-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.article-thumb{height:180px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:1px solid var(--border);font-size:3rem;position:relative;overflow:hidden}
+.article-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,var(--glass) 0%,transparent 70%)}
+.article-body{padding:28px;flex:1;display:flex;flex-direction:column;gap:12px}
+.article-meta{display:flex;align-items:center;gap:16px;font-size:.75rem;color:var(--muted)}
+.article-tag{padding:4px 10px;background:var(--glass);border:1px solid var(--border);border-radius:100px;color:var(--accent3);font-size:.7rem;font-weight:600}
+.article-card h2{font-size:1.1rem;font-weight:700;line-height:1.3;margin-top:4px}
+.article-card p{font-size:.9rem;color:var(--muted);line-height:1.6;flex:1}
+.article-link{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--accent);margin-top:8px;transition:gap .2s}
+.article-link:hover{gap:10px}
+
+footer{padding:48px 24px;border-top:1px solid var(--border);text-align:center}
+.footer-links{display:flex;justify-content:center;gap:32px;margin-bottom:20px;flex-wrap:wrap}
+.footer-links a{font-size:.85rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+footer p{font-size:.8rem;color:var(--muted)}
+
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{gap:20px}
+  .nav-links a{display:none}
+  .articles-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><a href="../"><img src="../logo-dark.png" alt="HolaSaaS" style="height:30px;width:auto;"></a></div>
+  <div class="nav-links">
+    <a href="../#comment-ca-marche">Comment ca marche</a>
+    <a href="../#tarifs">Tarifs</a>
+    <a href="../#faq">FAQ</a>
+    <a href="/blog/" class="active">Blog</a>
+  </div>
+  <a href="../" class="nav-cta">Lancer le diagnostic</a>
+</nav>
+
+<div class="blog-header">
+  <div class="blog-header-bg"></div>
+  <div class="container">
+    <div class="blog-label">Blog</div>
+    <h1>Ressources pour <span class="grad">lancer ton SaaS</span></h1>
+    <p>Des articles concrets pour passer de l'idee au produit, sans te perdre dans la theorie.</p>
+  </div>
+</div>
+
+<section class="articles-section">
+  <div class="container">
+    <div class="articles-grid">
+
+      <a href="prompts-chatgpt-saas-2026.html" class="article-card">
+        <div class="article-thumb">
+          <span style="position:relative;z-index:1">&#128161;</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">IA & Prompts</span>
+            <span>8 min de lecture</span>
+            <span>Juillet 2026</span>
+          </div>
+          <h2>Prompts ChatGPT pour lancer son SaaS en 2026</h2>
+          <p>Les prompts exacts que j'utilise pour briefer Claude Code, valider une architecture et generer du contenu. Prets a copier-coller.</p>
+          <span class="article-link">Lire l'article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="valider-idee-saas-avant-coder.html" class="article-card">
+        <div class="article-thumb">
+          <span style="position:relative;z-index:1">&#9989;</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">Validation</span>
+            <span>10 min de lecture</span>
+            <span>Juillet 2026</span>
+          </div>
+          <h2>Comment valider son idee SaaS avant de coder</h2>
+          <p>5 etapes concretes pour savoir si ton idee vaut la peine d'etre construite, avant d'ecrire une seule ligne de code.</p>
+          <span class="article-link">Lire l'article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+      <a href="structure-juridique-saas-france.html" class="article-card">
+        <div class="article-thumb">
+          <span style="position:relative;z-index:1">&#9878;</span>
+        </div>
+        <div class="article-body">
+          <div class="article-meta">
+            <span class="article-tag">Juridique</span>
+            <span>7 min de lecture</span>
+            <span>Juillet 2026</span>
+          </div>
+          <h2>Quelle structure juridique pour son SaaS en France</h2>
+          <p>Micro-entreprise, SASU ou SAS : comparatif complet pour choisir le bon statut quand on lance son SaaS en solo.</p>
+          <span class="article-link">Lire l'article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="../cgv.html">CGV</a>
+    <a href="../politique-confidentialite.html">Politique de confidentialite</a>
+    <a href="mailto:contact@holasaas.ai">Contact</a>
+    <a href="../mentions-legales.html">Mentions legales</a>
+  </div>
+  <p>&copy; 2026 HolaSaaS &middot; Le Cap &middot; SIREN 932&nbsp;229&nbsp;503 &middot; 1 rue du Haras, 91240 Saint-Michel-sur-Orge</p>
+</footer>
+
+</body>
+</html>

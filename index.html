@@ -12,15 +12,14 @@
   --bg: #08080f;
   --bg2: #0f0f1a;
   --bg3: #141424;
-  --accent: #9b6fff;
+  --accent: #7c6fff;
   --accent2: #3b82f6;
-  --accent-pink: #e8607a;
   --accent3: #a78bfa;
   --text: #f0f0ff;
   --muted: #8888aa;
-  --border: rgba(155,111,255,0.18);
+  --border: rgba(124,111,255,0.18);
   --card: rgba(255,255,255,0.04);
-  --glass: rgba(155,111,255,0.08);
+  --glass: rgba(124,111,255,0.08);
   --success: #22d3a5;
   --r: 16px;
 }
@@ -44,34 +43,33 @@ a{color:inherit;text-decoration:none}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;backdrop-filter:blur(20px);background:rgba(8,8,15,0.7);border-bottom:1px solid var(--border)}
-.nav-links{display:flex;align-items:center;gap:32px}
-.nav-link{color:var(--muted);text-decoration:none;font-size:.9rem;transition:color .2s}
-.nav-link:hover{color:#fff}
-@media(max-width:768px){.nav-links{display:none}}
 .logo{display:flex;align-items:center}
-.nav-cta{padding:10px 24px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;transition:opacity .2s,transform .2s}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s;font-weight:500}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{padding:10px 24px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-weight:600;font-size:.9rem;cursor:pointer;transition:opacity .2s,transform .2s}
 .nav-cta:hover{opacity:.85;transform:translateY(-1px)}
 
 /* ── HERO ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(155,111,255,0.15) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(59,130,246,0.1) 0%,transparent 70%);pointer-events:none}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,111,255,0.15) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(59,130,246,0.1) 0%,transparent 70%);pointer-events:none}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border:1px solid var(--border);border-radius:100px;font-size:.8rem;color:var(--accent3);margin-bottom:32px;backdrop-filter:blur(10px)}
 .hero-badge span{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
 h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;max-width:900px}
-h1 .grad{background:linear-gradient(135deg,var(--accent-pink) 0%,var(--accent) 50%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h1 .grad{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 50%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero-sub{font-size:1.2rem;color:var(--muted);max-width:600px;margin-bottom:48px;font-weight:400;line-height:1.7}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 60px rgba(155,111,255,0.35)}
-.hero-cta:hover{transform:translateY(-3px);box-shadow:0 0 80px rgba(155,111,255,0.5)}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 60px rgba(124,111,255,0.35)}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 0 80px rgba(124,111,255,0.5)}
 .hero-cta svg{transition:transform .3s}
 .hero-cta:hover svg{transform:translateX(4px)}
 .hero-stats{display:flex;gap:48px;margin-top:64px;padding-top:48px;border-top:1px solid var(--border)}
 .stat{text-align:center}
-.stat-n{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-n{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .stat-l{font-size:.8rem;color:var(--muted);margin-top:2px}
 
 /* ── SECTION BASE ── */
-section{padding:100px 24px;scroll-margin-top:90px}
+section{padding:100px 24px}
 .container{max-width:1100px;margin:0 auto}
 .section-label{font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
 .section-title{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
@@ -80,7 +78,7 @@ section{padding:100px 24px;scroll-margin-top:90px}
 /* ── PROBLEM ── */
 .problems{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:56px}
 .prob-card{padding:28px;border:1px solid var(--border);border-radius:var(--r);background:var(--card);backdrop-filter:blur(10px)}
-.prob-icon{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.prob-icon{font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
 .prob-card h3{font-size:1rem;font-weight:600;margin-bottom:8px}
 .prob-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
 
@@ -88,7 +86,7 @@ section{padding:100px 24px;scroll-margin-top:90px}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;position:relative}
 .steps::before{content:'';position:absolute;top:40px;left:16%;right:16%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
 .step{text-align:center;padding:32px 20px}
-.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 20px;box-shadow:0 0 30px rgba(155,111,255,0.3)}
+.step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;margin:0 auto 20px;box-shadow:0 0 30px rgba(124,111,255,0.3)}
 .step h3{font-size:1.1rem;font-weight:700;margin-bottom:10px}
 .step p{font-size:.9rem;color:var(--muted);line-height:1.6}
 
@@ -101,20 +99,17 @@ section{padding:100px 24px;scroll-margin-top:90px}
 
 /* ── PRICING ── */
 .pricing-card{max-width:520px;margin:56px auto 0;border:1px solid var(--accent);border-radius:24px;background:var(--bg2);padding:48px;text-align:center;position:relative;overflow:hidden}
-.pricing-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(155,111,255,0.1),transparent 70%);pointer-events:none}
+.pricing-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(124,111,255,0.1),transparent 70%);pointer-events:none}
 .price-badge{display:inline-block;padding:6px 16px;background:var(--glass);border:1px solid var(--border);border-radius:100px;font-size:.75rem;color:var(--accent3);margin-bottom:24px}
 .price-amount{font-size:4rem;font-weight:900;line-height:1;letter-spacing:-2px}
 .price-amount sup{font-size:1.5rem;vertical-align:super;font-weight:600}
 .price-once{font-size:.9rem;color:var(--muted);margin-top:8px;margin-bottom:32px}
 .price-features{list-style:none;text-align:left;margin-bottom:40px;display:flex;flex-direction:column;gap:12px}
 .price-features li{display:flex;align-items:center;gap:12px;font-size:.95rem}
-.check{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem}
-.price-cta{width:100%;padding:18px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(232,96,122,0.3)}
-.price-cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(155,111,255,0.5)}
+.check{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem}
+.price-cta{width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(124,111,255,0.3)}
+.price-cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,111,255,0.5)}
 .price-guarantee{font-size:.8rem;color:var(--muted);margin-top:20px}
-.pricing-grid{display:flex;gap:24px;justify-content:center;margin-top:56px;flex-wrap:wrap}
-.pricing-grid .pricing-card{margin:0;flex:1;min-width:280px;max-width:440px}
-.pricing-card--featured{border-color:var(--accent);box-shadow:0 0 60px rgba(155,111,255,0.15)}
 
 /* ── FAQ ── */
 .faq-list{max-width:700px;margin:56px auto 0;display:flex;flex-direction:column;gap:12px}
@@ -145,13 +140,13 @@ footer p{font-size:.8rem;color:var(--muted)}
 .ob-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
 .ob-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px}
 .ob-sub{font-size:1rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px}
-.ob-warning{background:rgba(155,111,255,0.06);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:36px;max-width:460px}
+.ob-warning{background:rgba(124,111,255,0.06);border:1px solid var(--border);border-radius:16px;padding:24px 28px;margin-bottom:36px;max-width:460px}
 .ob-warning p{color:var(--muted);font-size:.95rem;line-height:1.7}
 .ob-warning strong{color:var(--text)}
-.ob-timer{width:100%;max-width:300px;height:2px;background:rgba(155,111,255,0.15);border-radius:2px;margin-bottom:28px;overflow:hidden}
-.ob-timer-bar{height:100%;background:linear-gradient(90deg,var(--accent-pink),var(--accent),var(--accent2));border-radius:2px;width:0%;transition:width linear}
+.ob-timer{width:100%;max-width:300px;height:2px;background:rgba(124,111,255,0.15);border-radius:2px;margin-bottom:28px;overflow:hidden}
+.ob-timer-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;width:0%;transition:width linear}
 .ob-actions{display:flex;gap:12px;align-items:center}
-.ob-btn-primary{padding:14px 36px;border:none;border-radius:100px;font-size:1rem;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));color:#fff;transition:opacity .2s,transform .2s}
+.ob-btn-primary{padding:14px 36px;border:none;border-radius:100px;font-size:1rem;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transition:opacity .2s,transform .2s}
 .ob-btn-primary:hover{opacity:.85;transform:translateY(-2px)}
 .ob-btn-skip{padding:12px 24px;border:1px solid var(--border);border-radius:100px;background:transparent;color:var(--muted);font-size:.85rem;cursor:pointer;transition:color .2s,border-color .2s}
 .ob-btn-skip:hover{color:var(--text);border-color:var(--accent)}
@@ -170,7 +165,7 @@ footer p{font-size:.8rem;color:var(--muted)}
 .diag-progress-wrap{padding:16px 32px;flex-shrink:0;border-bottom:1px solid var(--border)}
 .diag-progress-meta{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:8px}
 .diag-progress-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
-.diag-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent-pink),var(--accent),var(--accent2));border-radius:2px;transition:width .4s ease}
+.diag-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .4s ease}
 .diag-sections{display:flex;gap:8px;padding:16px 32px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid var(--border)}
 .diag-section-tab{padding:6px 14px;border-radius:100px;font-size:.75rem;font-weight:600;white-space:nowrap;transition:all .2s;color:var(--muted);border:1px solid transparent}
 .diag-section-tab.active{background:var(--glass);border-color:var(--border);color:var(--accent)}
@@ -207,8 +202,8 @@ footer p{font-size:.8rem;color:var(--muted)}
 .slider-wrap{width:100%}
 .slider-labels{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-bottom:8px}
 .q-slider{width:100%;-webkit-appearance:none;height:6px;border-radius:3px;background:var(--bg3);outline:none;cursor:pointer}
-.q-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));cursor:pointer;box-shadow:0 0 12px rgba(155,111,255,0.5);transition:box-shadow .2s}
-.q-slider::-webkit-slider-thumb:hover{box-shadow:0 0 20px rgba(155,111,255,0.7)}
+.q-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));cursor:pointer;box-shadow:0 0 12px rgba(124,111,255,0.5);transition:box-shadow .2s}
+.q-slider::-webkit-slider-thumb:hover{box-shadow:0 0 20px rgba(124,111,255,0.7)}
 .slider-value{text-align:center;font-size:1.4rem;font-weight:700;color:var(--accent);margin-top:12px}
 .slider-unit{font-size:.9rem;font-weight:400;color:var(--muted)}
 
@@ -249,8 +244,8 @@ footer p{font-size:.8rem;color:var(--muted)}
 .diag-nav{display:flex;align-items:center;justify-content:space-between;padding:24px 32px;border-top:1px solid var(--border);flex-shrink:0}
 .btn-back{padding:12px 24px;background:var(--card);border:1px solid var(--border);border-radius:100px;color:var(--muted);font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-back:hover{color:var(--text);border-color:var(--accent)}
-.btn-next{padding:12px 32px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
-.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(155,111,255,0.35)}
+.btn-next{padding:12px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,111,255,0.35)}
 .btn-next:disabled{opacity:.4;cursor:default;transform:none}
 .q-counter{font-size:.85rem;color:var(--muted)}
 
@@ -269,10 +264,10 @@ footer p{font-size:.8rem;color:var(--muted)}
 .s-label{width:220px;flex-shrink:0;font-size:.82rem;color:var(--muted)}
 .s-val{font-size:.9rem;color:var(--text)}
 .summary-cta-wrap{text-align:center;margin-top:48px;padding:40px;border:1px solid var(--accent);border-radius:24px;background:var(--bg2)}
-.summary-price{font-size:3rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.summary-price{font-size:3rem;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .summary-once{color:var(--muted);font-size:.9rem;margin-bottom:28px}
-.summary-pay-btn{padding:18px 56px;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(155,111,255,0.3)}
-.summary-pay-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(155,111,255,0.5)}
+.summary-pay-btn{padding:18px 56px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(124,111,255,0.3)}
+.summary-pay-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,111,255,0.5)}
 
 /* ══════════════════════════════════════
    SUCCESS
@@ -293,7 +288,7 @@ footer p{font-size:.8rem;color:var(--muted)}
 .next-steps h3{font-size:1.2rem;font-weight:700;margin-bottom:20px}
 .steps-list{display:flex;flex-direction:column;gap:12px}
 .nstep{display:flex;align-items:flex-start;gap:16px;padding:16px 20px;border:1px solid var(--border);border-radius:var(--r);background:var(--card)}
-.nstep-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent-pink),var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
+.nstep-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0}
 .nstep-text h4{font-size:.9rem;font-weight:600;margin-bottom:4px}
 .nstep-text p{font-size:.82rem;color:var(--muted)}
 
@@ -315,7 +310,6 @@ footer p{font-size:.8rem;color:var(--muted)}
   .hero-stats{flex-direction:column;gap:16px}
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 
@@ -325,11 +319,12 @@ footer p{font-size:.8rem;color:var(--muted)}
 <div id="landing">
 
 <nav>
-  <div class="logo"><img src="logo-dark.png" alt="HolaSaaS" style="height:44px;width:auto;"></div>
+  <div class="logo"><img src="logo-dark.png" alt="HolaSaaS" style="height:30px;width:auto;"></div>
   <div class="nav-links">
-    <a href="#comment-ca-marche" class="nav-link">Comment ça marche</a>
-    <a href="#tarifs" class="nav-link">Tarifs</a>
-    <a href="#faq" class="nav-link">FAQ</a>
+    <a href="#comment-ca-marche">Comment ca marche</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#faq">FAQ</a>
+    <a href="blog/">Blog</a>
   </div>
   <button class="nav-cta" onclick="startDiag()">Lancer le diagnostic</button>
 </nav>
@@ -341,6 +336,7 @@ footer p{font-size:.8rem;color:var(--muted)}
   <p class="hero-sub">Réponds à nos questions. On génère le brief parfait pour Claude Code. Ton SaaS sort de l'autre côté, clé en main.</p>
   <button class="hero-cta" onclick="startDiag()">
     Lancer mon diagnostic
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </button>
   <div class="hero-stats">
     <div class="stat"><div class="stat-n">58</div><div class="stat-l">Questions précises</div></div>
@@ -402,48 +398,32 @@ footer p{font-size:.8rem;color:var(--muted)}
 <section style="background:var(--bg2)">
   <div class="container">
     <div class="section-label">Ce que tu reçois</div>
-    <h2 class="section-title">Deux packs.<br>Un seul diagnostic.</h2>
-    <p class="section-sub">Les 4 prompts sont inclus dans les deux offres. Le Pack Complet ajoute les livrables et l'accompagnement.</p>
-    <div style="margin-top:48px;">
-      <p style="font-size:.8rem;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;margin-bottom:20px;">Inclus dans les deux offres</p>
-      <div class="package-grid" style="margin-top:0">
-        <div class="pack-item">
-          <div class="pack-icon">01</div>
-          <div><h3>Prompt maître Claude Code</h3><p>Le brief technique complet, structuré par domaine, prêt à coller dans Claude Code.</p></div>
-        </div>
-        <div class="pack-item">
-          <div class="pack-icon">02</div>
-          <div><h3>Prompt Phase 1 : Architecture</h3><p>Structure du projet, schéma BDD, routes API. La fondation de ton SaaS.</p></div>
-        </div>
-        <div class="pack-item">
-          <div class="pack-icon">03</div>
-          <div><h3>Prompt Phase 2 : Features MVP</h3><p>Un prompt par fonctionnalité prioritaire, avec contraintes techniques et UX.</p></div>
-        </div>
-        <div class="pack-item">
-          <div class="pack-icon">04</div>
-          <div><h3>Guide de préparation</h3><p>Comptes à créer, environnement local, légal, produit. Tout ce qu'il faut avant de coder.</p></div>
-        </div>
+    <h2 class="section-title">Un pack complet.<br>Pas juste un prompt.</h2>
+    <p class="section-sub">Tout ce qu'il faut pour passer de l'idée au SaaS en production.</p>
+    <div class="package-grid">
+      <div class="pack-item">
+        <div class="pack-icon">01</div>
+        <div><h3>Prompt maître Claude Code</h3><p>Le brief technique complet, structuré par domaine, prêt à coller dans Claude Code.</p></div>
       </div>
-    </div>
-    <div style="margin-top:40px;">
-      <p style="font-size:.8rem;font-weight:700;letter-spacing:2px;color:#e8607a;text-transform:uppercase;margin-bottom:20px;">Pack Complet uniquement (497€)</p>
-      <div class="package-grid" style="margin-top:0">
-        <div class="pack-item" style="border-color:rgba(232,96,122,0.3)">
-          <div class="pack-icon" style="color:#e8607a">05</div>
-          <div><h3>Stack technique recommandée</h3><p>Next.js, Supabase, Stripe, Vercel ou autre selon tes réponses. Avec justification.</p></div>
-        </div>
-        <div class="pack-item" style="border-color:rgba(232,96,122,0.3)">
-          <div class="pack-icon" style="color:#e8607a">06</div>
-          <div><h3>Pages légales pré-remplies</h3><p>CGU, CGV et politique de confidentialité avec tes infos et ton activité.</p></div>
-        </div>
-        <div class="pack-item" style="border-color:rgba(232,96,122,0.3)">
-          <div class="pack-icon" style="color:#e8607a">07</div>
-          <div><h3>2 sessions consultant 1h</h3><p>Accompagnement personnalisé pour débloquer, valider et accélérer ton build.</p></div>
-        </div>
-        <div class="pack-item" style="border-color:rgba(232,96,122,0.3)">
-          <div class="pack-icon" style="color:#e8607a">08</div>
-          <div><h3>Support email 30 jours</h3><p>Questions techniques, relecture de code, conseils produit. Tu n'es pas seul.</p></div>
-        </div>
+      <div class="pack-item">
+        <div class="pack-icon">02</div>
+        <div><h3>7 prompts de build phase par phase</h3><p>Architecture, BDD, auth, features, design, paiement, déploiement. Un prompt par étape.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">03</div>
+        <div><h3>Pages légales générées</h3><p>CGU, CGV et politique de confidentialité pré-remplies avec tes infos et ton activité.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">04</div>
+        <div><h3>Guide d'exploitation étape par étape</h3><p>Comment utiliser Claude Code, déployer ton SaaS et acquérir tes premiers clients.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">05</div>
+        <div><h3>Stack technique recommandée</h3><p>Next.js, Supabase, Stripe, Vercel, ou autre selon tes réponses. Avec justification.</p></div>
+      </div>
+      <div class="pack-item">
+        <div class="pack-icon">06</div>
+        <div><h3>Architecture produit détaillée</h3><p>Schéma BDD, structure de fichiers, routes API, user flows. Tout est prémâché.</p></div>
       </div>
     </div>
   </div>
@@ -451,38 +431,24 @@ footer p{font-size:.8rem;color:var(--muted)}
 
 <section id="tarifs">
   <div class="container" style="text-align:center">
-    <div class="section-label">Tarifs</div>
-    <h2 class="section-title">Deux offres. Un seul diagnostic.</h2>
-    <p class="section-sub" style="margin:0 auto">Remplis le diagnostic une fois, choisis ton niveau d'accompagnement à la fin.</p>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="price-badge">Pack Découverte</div>
-        <div class="price-amount"><sup>&euro;</sup>49</div>
-        <div class="price-once">paiement unique, accès immédiat</div>
-        <ul class="price-features">
-          <li><span class="check">&#10003;</span>Diagnostic 58 questions</li>
-          <li><span class="check">&#10003;</span>Prompt maître personnalisé</li>
-          <li><span class="check">&#10003;</span>Prompts architecture et features</li>
-          <li><span class="check">&#10003;</span>Guide de préparation complet</li>
-          <li><span class="check">&#10003;</span>Accès immédiat après paiement</li>
-        </ul>
-        <button class="price-cta" style="background:linear-gradient(135deg,#3b82f6,#2563eb)" onclick="startDiag()">Commencer mon diagnostic</button>
-        <div class="price-guarantee">Paiement sécurisé via Stripe</div>
-      </div>
-      <div class="pricing-card pricing-card--featured">
-        <div class="price-badge" style="color:var(--accent)">Pack Complet</div>
-        <div class="price-amount"><sup>&euro;</sup>497</div>
-        <div class="price-once">paiement unique, tout inclus</div>
-        <ul class="price-features">
-          <li><span class="check">&#10003;</span>Tout du Pack Découverte</li>
-          <li><span class="check">&#10003;</span>Bundle ZIP livré sous 24h</li>
-          <li><span class="check">&#10003;</span>Architecture et stack recommandées</li>
-          <li><span class="check">&#10003;</span>2 sessions consultant 1h</li>
-          <li><span class="check">&#10003;</span>Support email 30 jours</li>
-        </ul>
-        <button class="price-cta" onclick="startDiag()">Commencer mon diagnostic</button>
-        <div class="price-guarantee">Paiement sécurisé via Stripe · Remboursement 7 jours</div>
-      </div>
+    <div class="section-label">Tarif</div>
+    <h2 class="section-title">Un prix. Une fois. Pour toujours.</h2>
+    <p class="section-sub" style="margin:0 auto">Pas d'abonnement. Pas de surprise. Tu paies, tu reçois ton pack complet dans les 48h.</p>
+    <div class="pricing-card">
+      <div class="price-badge">Paiement unique, accès à vie</div>
+      <div class="price-amount"><sup>&euro;</sup>497</div>
+      <div class="price-once">une seule fois, tout inclus</div>
+      <ul class="price-features">
+        <li><span class="check">&#10003;</span>Diagnostic 58 questions</li>
+        <li><span class="check">&#10003;</span>Prompt maître Claude Code</li>
+        <li><span class="check">&#10003;</span>7 prompts de build phasés</li>
+        <li><span class="check">&#10003;</span>Pages légales (CGU, CGV, RGPD)</li>
+        <li><span class="check">&#10003;</span>Guide d'exploitation complet</li>
+        <li><span class="check">&#10003;</span>Architecture et stack recommandées</li>
+        <li><span class="check">&#10003;</span>Support par email 30 jours</li>
+      </ul>
+      <button class="price-cta" onclick="startDiag()">Commencer mon diagnostic</button>
+      <div class="price-guarantee">Paiement sécurisé via Stripe · Satisfait ou remboursé 7 jours</div>
     </div>
   </div>
 </section>
@@ -502,19 +468,15 @@ footer p{font-size:.8rem;color:var(--muted)}
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">En combien de temps je reçois mon pack ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Ça dépend de ton offre. Avec le Pack Découverte, tes prompts personnalisés sont générés et affichés immédiatement après le paiement. Avec le Pack Complet, tu reçois en plus ton bundle ZIP personnalisé par email sous 24h, et on te contacte pour planifier tes deux sessions avec un consultant.</p></div>
+        <div class="faq-a"><p>Ton pack est généré automatiquement dès la fin de ton diagnostic et du paiement. Tu l'as immédiatement après la transaction. Les 48h mentionnées sont la marge qu'on garde pour vérifier et personnaliser si nécessaire.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">C'est vraiment un paiement unique ? Pas d'abonnement caché ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Oui, dans les deux cas. Le Pack Découverte, c'est 49€ une fois. Le Pack Complet, c'est 497€ une fois. Tu reçois ton pack, c'est tout. Pas d'abonnement, pas de renouvellement, pas de surprise sur ta carte.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Quelle différence entre les deux offres ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Le diagnostic est le même dans les deux cas. Le Pack Découverte à 49€ te donne tes prompts personnalisés, prêts à coller dans Claude Code, plus le guide de préparation. Le Pack Complet à 497€ ajoute le bundle ZIP livré sous 24h, l'architecture et la stack recommandées, deux sessions d'une heure avec un consultant et 30 jours de support par email. Tu choisis à la fin du diagnostic.</p></div>
+        <div class="faq-a"><p>Oui. Tu paies 497€ une fois. Tu reçois ton pack. C'est tout. Pas d'abonnement, pas de renouvellement, pas de surprise sur ta carte.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Et si je ne suis pas satisfait ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Le Pack Complet est remboursable 7 jours, sans justification. Le Pack Découverte, dont les prompts sont livrés immédiatement après le paiement, n'est pas remboursable une fois le contenu affiché. Dans tous les cas, écris à contact@holasaas.ai et on te répond sous 48h.</p></div>
+        <div class="faq-a"><p>Tu as 7 jours pour demander un remboursement complet, sans justification. Envoie un email à contact@holasaas.ai et on rembourse dans les 48h.</p></div>
       </div>
     </div>
   </div>
@@ -571,28 +533,7 @@ footer p{font-size:.8rem;color:var(--muted)}
     <div class="summary-cta-wrap">
       <div class="summary-price">&euro;497</div>
       <div class="summary-once">paiement unique, accès immédiat</div>
-      <div style="margin:24px 0 8px;text-align:left;">
-        <label style="display:block;font-size:13px;color:#8888aa;margin-bottom:8px;">Adresse email pour recevoir ton bundle</label>
-        <input id="client-email" type="email" placeholder="ton@email.com"
-          style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #2a2a3a;background:#12121e;color:#fff;font-size:15px;box-sizing:border-box;outline:none;"
-          onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#2a2a3a'">
-        <div id="email-error" style="color:#ff6b6b;font-size:12px;margin-top:6px;display:none;">Adresse email invalide</div>
-      </div>
-      <div style="margin:16px 0;text-align:left;">
-        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:#8888aa;line-height:1.5;">
-          <input type="checkbox" id="cgv-consent" style="margin-top:2px;accent-color:#9b6fff;flex-shrink:0;">
-          <span>J'ai lu et j'accepte les <a href="cgv.html" target="_blank" style="color:#9b6fff;text-decoration:underline;">CGV</a>. Pour le Pack Découverte (49€), je reconnais que le contenu est livré immédiatement et renonce à mon droit de rétractation.</span>
-        </label>
-        <div id="cgv-error" style="color:#ff6b6b;font-size:12px;margin-top:6px;display:none;">Tu dois accepter les CGV pour continuer.</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
-        <button class="summary-pay-btn" onclick="goToPayment('basic')" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
-          Pack Prompts : 49€ <span style="font-size:12px;opacity:0.8;display:block;font-weight:400;margin-top:2px;">Prompts personnalisés + guide de démarrage</span>
-        </button>
-        <button class="summary-pay-btn" onclick="goToPayment('premium')">
-          Pack Complet + Consultant : 497€ <span style="font-size:12px;opacity:0.8;display:block;font-weight:400;margin-top:2px;">Bundle ZIP + 2 sessions d'accompagnement</span>
-        </button>
-      </div>
+      <button class="summary-pay-btn" onclick="goToPayment()">Payer et recevoir mon pack</button>
       <div style="margin-top:16px;font-size:.8rem;color:var(--muted)">Paiement sécurisé Stripe · Remboursement 7j sans conditions</div>
       <div style="margin-top:12px"><button onclick="backToDiag()" style="background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;text-decoration:underline">Modifier mes réponses</button></div>
     </div>
@@ -608,9 +549,6 @@ footer p{font-size:.8rem;color:var(--muted)}
     <h2>Ton pack SaaS est prêt.</h2>
     <p class="s-sub">Copie les prompts ci-dessous dans Claude Code et suis les étapes dans l'ordre. Ton SaaS va prendre vie.</p>
     <div id="prompts-output"></div>
-    <div style="text-align:center;margin-top:32px;">
-      <button id="download-zip-btn" onclick="downloadZip()" style="display:none;padding:14px 32px;background:linear-gradient(135deg,#e8607a,#9b6fff,#3b82f6);border:none;border-radius:100px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;">Télécharger mes prompts (.zip)</button>
-    </div>
     <div class="next-steps">
       <h3>Les prochaines étapes</h3>
       <div class="steps-list">
@@ -717,8 +655,7 @@ const QUESTIONS = [
 // ══════════════════════════════════════
 // STATE
 // ══════════════════════════════════════
-const STRIPE_URL = "https://buy.stripe.com/dRmcN6bLnbtOe0wgEZ8Zq00";
-const STRIPE_URL_BASIC = "https://buy.stripe.com/eVqdRa6r341mbCkbkF8Zq01";
+const STRIPE_URL = "VOTRE_LIEN_STRIPE"; // <-- Remplace ici
 let qIndex = 0;
 let answers = {};
 
@@ -727,8 +664,7 @@ let answers = {};
 // ══════════════════════════════════════
 function startDiag(){
   const p = new URLSearchParams(location.search);
-  const s = p.get("success");
-  if(s === "1" || s === "basic"){ showSuccess(); return; }
+  if(p.get("success")==="1"){ showSuccess(); return; }
   startOnboarding();
 }
 function startDiagForReal(){
@@ -1139,40 +1075,9 @@ function formatAnswer(q, val){
 // ══════════════════════════════════════
 // PAYMENT
 // ══════════════════════════════════════
-async function goToPayment(tier = 'premium'){
-  const emailInput = document.getElementById("client-email");
-  const email = emailInput ? emailInput.value.trim() : "";
-  const emailError = document.getElementById("email-error");
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailRe.test(email)){
-    if(emailError) emailError.style.display = "block";
-    return;
-  }
-  if(emailError) emailError.style.display = "none";
-  const cgvBox = document.getElementById("cgv-consent");
-  const cgvError = document.getElementById("cgv-error");
-  if(!cgvBox || !cgvBox.checked){
-    if(cgvError) cgvError.style.display = "block";
-    return;
-  }
-  if(cgvError) cgvError.style.display = "none";
-  window._clientEmail = email;
+function goToPayment(){
   try{ localStorage.setItem("holasaas_answers", JSON.stringify(answers)); }catch(e){}
-  window._clientTier = tier;
-  try {
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort(), 4000);
-    await fetch("/api/capture", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, answers, tier }),
-      signal: ctrl.signal
-    });
-    clearTimeout(t);
-  } catch(e) {
-    // silencieux : on ne bloque pas le paiement
-  }
-  window.location.href = tier === 'basic' ? STRIPE_URL_BASIC : STRIPE_URL;
+  window.location.href = STRIPE_URL;
 }
 
 // ══════════════════════════════════════
@@ -1182,29 +1087,10 @@ function showSuccess(){
   document.getElementById("landing").style.display="none";
   const so = document.getElementById("success-overlay");
   so.classList.remove("hidden");
-  const urlParams = new URLSearchParams(window.location.search);
-  const tier = urlParams.get('success') === 'basic' ? 'basic' : 'premium';
-  const out = document.getElementById("prompts-output");
-
-  if(tier === 'premium'){
-    out.innerHTML = `
-      <div style="text-align:center;padding:48px 24px;">
-        <div style="font-size:48px;margin-bottom:16px;">✅</div>
-        <h2 style="color:#fff;margin-bottom:12px;">Paiement confirmé</h2>
-        <p style="color:#8888aa;font-size:16px;line-height:1.6;margin-bottom:32px;">Ton bundle ZIP personnalisé arrive dans les 24h.<br>Surveille ta boîte email.</p>
-        <div style="background:#12121e;border:1px solid #2a2a3a;border-radius:16px;padding:32px;max-width:480px;margin:0 auto;">
-          <p style="color:#fff;font-weight:600;font-size:1.1rem;margin-bottom:8px;">Réserve tes 2 sessions d'accompagnement</p>
-          <p style="color:#8888aa;font-size:.9rem;margin-bottom:24px;">Incluses dans ton pack. Planifie-les quand tu veux, avant ou après réception du bundle.</p>
-          <a href="https://calendly.com/neil-desmet-lecap/1h" target="_blank" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#e8607a,#9b6fff,#3b82f6);border-radius:100px;color:#fff;font-weight:600;text-decoration:none;font-size:1rem;">Planifier ma session</a>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
   let a = {};
   try{ a = JSON.parse(localStorage.getItem("holasaas_answers")||"{}"); }catch(e){}
   const prompts = generatePrompts(a);
+  const out = document.getElementById("prompts-output");
   out.innerHTML = prompts.map((p,i)=>`
     <div class="prompt-block">
       <div class="prompt-head">
@@ -1218,24 +1104,6 @@ function showSuccess(){
     </div>
   `).join("");
   window._prompts = prompts;
-  const dlBtn = document.getElementById("download-zip-btn");
-  if(dlBtn) dlBtn.style.display = "block";
-}
-
-async function downloadZip(){
-  if(!window._prompts || !window.JSZip) return;
-  const zip = new JSZip();
-  const names = ["01-prompt-maitre.md","02-architecture.md","03-features-mvp.md","04-guide-preparation.md"];
-  window._prompts.forEach((p,i)=>{
-    if(names[i]) zip.file(names[i], p.content);
-  });
-  const blob = await zip.generateAsync({type:"blob"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "holasaas-bundle.zip";
-  a.click();
-  URL.revokeObjectURL(url);
 }
 function escHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function copyPrompt(btn, i){
@@ -1255,7 +1123,7 @@ function generatePrompts(a){
   };
   const p = (id) => a[`p_${id}`]||"";
 
-  const masterPrompt = `# HOLASAAS : BRIEF TECHNIQUE COMPLET POUR CLAUDE CODE
+  const masterPrompt = `# HOLASAAS — BRIEF TECHNIQUE COMPLET POUR CLAUDE CODE
 # Généré par le diagnostic HolaSaaS
 
 ---
@@ -1438,7 +1306,7 @@ Tu es un expert full-stack senior. Tu vas construire un SaaS complet et producti
 
 Commence par créer la structure complète du projet, puis implémente feature par feature dans l'ordre logique.`;
 
-  const promptArchitecture = `# PHASE 1 : ARCHITECTURE & STRUCTURE DU PROJET
+  const promptArchitecture = `# PHASE 1 — ARCHITECTURE & STRUCTURE DU PROJET
 
 Tu es un expert Next.js / TypeScript. Crée la structure complète du projet SaaS en suivant ce brief :
 
@@ -1466,7 +1334,7 @@ ${a[1]||"SaaS défini dans le brief maître"}
 
 Ne laisse aucun fichier vide. Tout doit être fonctionnel et compilable.`;
 
-  const promptFeatures = `# PHASE 2 : FONCTIONNALITÉS MVP
+  const promptFeatures = `# PHASE 2 — FONCTIONNALITÉS MVP
 
 Sur la base de l'architecture créée en phase 1, implémente maintenant les fonctionnalités MVP dans cet ordre prioritaire :
 
@@ -1488,46 +1356,10 @@ Implémente cette fonctionnalité de façon complète :
 
 Commence par la feature la plus critique pour l'utilisateur.`;
 
-  const promptPrerequis = `# Guide de préparation : Avant de coder ton SaaS
-
-## 1. Prérequis techniques
-
-### Comptes à créer
-- [ ] GitHub : https://github.com. Crée un compte et un repo privé nommé "mon-saas".
-- [ ] Vercel : https://vercel.com. Connecte ton compte GitHub pour le déploiement automatique.
-- [ ] ${(a[55] && a[55] !== "nsp") ? g(55) : "Supabase"} : crée un projet, récupère l'URL et la clé anon dans Settings > API.
-- [ ] Stripe : https://stripe.com. Crée un compte, active le mode test, récupère tes clés API.
-
-### Environnement local
-- [ ] Installe Node.js (version LTS) : https://nodejs.org
-- [ ] Installe VS Code : https://code.visualstudio.com
-- [ ] Installe Git : https://git-scm.com
-
-## 2. Prérequis légaux
-
-${a[35] ? `Tu as indiqué la structure suivante : ${g(35)}. Vérifie que ta structure couvre bien une activité commerciale en ligne.` : "Tu devras créer une structure juridique. La micro-entreprise est recommandée pour démarrer (inscription sur guichet-entreprises.fr)."}
-
-- [ ] Rédige tes Conditions Générales de Vente (CGV). Utilise un générateur comme https://www.cnil.fr ou un avocat.
-- [ ] Ajoute une page Mentions Légales (obligatoire en France).
-- [ ] Rédige une Politique de Confidentialité si tu collectes des données personnelles (obligatoire RGPD).
-- [ ] Achète ton nom de domaine si ce n'est pas fait.
-
-## 3. Prérequis produit
-
-- [ ] Valide ton positionnement : quel problème exact résous-tu, pour qui ?
-- [ ] Tes 3 fonctionnalités MVP prioritaires : ${(a[13] || []).slice(0, 3).join(", ") || "à définir depuis tes réponses au diagnostic"}.
-- [ ] Prépare 3 captures d'écran ou wireframes de ton interface cible avant de coder.
-- [ ] Valide ton pricing avec au moins 3 clients potentiels avant le lancement.
-
-## 4. Une fois tout ça en place
-
-Lance le Prompt Maître dans Claude Code. Il prendra en charge le reste.`;
-
   return [
     { title: "Prompt Maître", badge: "Prompt principal", content: masterPrompt },
-    { title: "Phase 1 : Architecture", badge: "Prompt de build", content: promptArchitecture },
-    { title: "Phase 2 : Fonctionnalités MVP", badge: "Prompt de build", content: promptFeatures },
-    { title: "Guide de préparation", badge: "À faire en premier", content: promptPrerequis },
+    { title: "Phase 1 — Architecture", badge: "Prompt de build", content: promptArchitecture },
+    { title: "Phase 2 — Fonctionnalités MVP", badge: "Prompt de build", content: promptFeatures },
   ];
 }
 
@@ -1544,8 +1376,7 @@ function toggleFaq(el){
 // ══════════════════════════════════════
 window.addEventListener("DOMContentLoaded",()=>{
   const p = new URLSearchParams(location.search);
-  const s = p.get("success");
-  if(s === "1" || s === "basic"){ showSuccess(); }
+  if(p.get("success")==="1"){ showSuccess(); }
 });
 </script>
 </body>
