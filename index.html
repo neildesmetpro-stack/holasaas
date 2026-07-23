@@ -107,6 +107,9 @@ section{padding:100px 24px}
 .price-cta{width:100%;padding:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:100px;color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .3s;box-shadow:0 0 40px rgba(124,111,255,0.3)}
 .price-cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(124,111,255,0.5)}
 .price-guarantee{font-size:.8rem;color:var(--muted);margin-top:20px}
+.pricing-grid{display:flex;gap:24px;justify-content:center;margin-top:56px;flex-wrap:wrap}
+.pricing-grid .pricing-card{margin:0;flex:1;min-width:280px;max-width:440px}
+.pricing-card--featured{border-color:var(--accent);box-shadow:0 0 60px rgba(124,111,255,0.15)}
 
 /* ── FAQ ── */
 .faq-list{max-width:700px;margin:56px auto 0;display:flex;flex-direction:column;gap:12px}
@@ -421,24 +424,38 @@ footer p{font-size:.8rem;color:var(--muted)}
 
 <section>
   <div class="container" style="text-align:center">
-    <div class="section-label">Tarif</div>
-    <h2 class="section-title">Un prix. Une fois. Pour toujours.</h2>
-    <p class="section-sub" style="margin:0 auto">Pas d'abonnement. Pas de surprise. Tu paies, tu reçois ton pack complet dans les 48h.</p>
-    <div class="pricing-card">
-      <div class="price-badge">Paiement unique, accès à vie</div>
-      <div class="price-amount"><sup>&euro;</sup>497</div>
-      <div class="price-once">une seule fois, tout inclus</div>
-      <ul class="price-features">
-        <li><span class="check">&#10003;</span>Diagnostic 58 questions</li>
-        <li><span class="check">&#10003;</span>Prompt maître Claude Code</li>
-        <li><span class="check">&#10003;</span>7 prompts de build phasés</li>
-        <li><span class="check">&#10003;</span>Pages légales (CGU, CGV, RGPD)</li>
-        <li><span class="check">&#10003;</span>Guide d'exploitation complet</li>
-        <li><span class="check">&#10003;</span>Architecture et stack recommandées</li>
-        <li><span class="check">&#10003;</span>Support par email 30 jours</li>
-      </ul>
-      <button class="price-cta" onclick="startDiag()">Commencer mon diagnostic</button>
-      <div class="price-guarantee">Paiement sécurisé via Stripe · Satisfait ou remboursé 7 jours</div>
+    <div class="section-label">Tarifs</div>
+    <h2 class="section-title">Deux offres. Un seul diagnostic.</h2>
+    <p class="section-sub" style="margin:0 auto">Remplis le diagnostic une fois, choisis ton niveau d'accompagnement à la fin.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="price-badge">Pack Découverte</div>
+        <div class="price-amount"><sup>&euro;</sup>49</div>
+        <div class="price-once">paiement unique, accès immédiat</div>
+        <ul class="price-features">
+          <li><span class="check">&#10003;</span>Diagnostic 58 questions</li>
+          <li><span class="check">&#10003;</span>Prompt maître personnalisé</li>
+          <li><span class="check">&#10003;</span>Prompts architecture et features</li>
+          <li><span class="check">&#10003;</span>Guide de préparation complet</li>
+          <li><span class="check">&#10003;</span>Accès immédiat après paiement</li>
+        </ul>
+        <button class="price-cta" style="background:linear-gradient(135deg,#3b82f6,#2563eb)" onclick="startDiag()">Commencer mon diagnostic</button>
+        <div class="price-guarantee">Paiement sécurisé via Stripe</div>
+      </div>
+      <div class="pricing-card pricing-card--featured">
+        <div class="price-badge" style="color:#7c6fff">Pack Complet</div>
+        <div class="price-amount"><sup>&euro;</sup>497</div>
+        <div class="price-once">paiement unique, tout inclus</div>
+        <ul class="price-features">
+          <li><span class="check">&#10003;</span>Tout du Pack Découverte</li>
+          <li><span class="check">&#10003;</span>Bundle ZIP livré sous 24h</li>
+          <li><span class="check">&#10003;</span>Architecture et stack recommandées</li>
+          <li><span class="check">&#10003;</span>2 sessions consultant 1h</li>
+          <li><span class="check">&#10003;</span>Support email 30 jours</li>
+        </ul>
+        <button class="price-cta" onclick="startDiag()">Commencer mon diagnostic</button>
+        <div class="price-guarantee">Paiement sécurisé via Stripe · Remboursement 7 jours</div>
+      </div>
     </div>
   </div>
 </section>
@@ -458,15 +475,19 @@ footer p{font-size:.8rem;color:var(--muted)}
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">En combien de temps je reçois mon pack ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Ton pack est généré automatiquement dès la fin de ton diagnostic et du paiement. Tu l'as immédiatement après la transaction. Les 48h mentionnées sont la marge qu'on garde pour vérifier et personnaliser si nécessaire.</p></div>
+        <div class="faq-a"><p>Ça dépend de ton offre. Avec le Pack Découverte, tes prompts personnalisés sont générés et affichés immédiatement après le paiement. Avec le Pack Complet, tu reçois en plus ton bundle ZIP personnalisé par email sous 24h, et on te contacte pour planifier tes deux sessions avec un consultant.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">C'est vraiment un paiement unique ? Pas d'abonnement caché ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Oui. Tu paies 497€ une fois. Tu reçois ton pack. C'est tout. Pas d'abonnement, pas de renouvellement, pas de surprise sur ta carte.</p></div>
+        <div class="faq-a"><p>Oui, dans les deux cas. Le Pack Découverte, c'est 49€ une fois. Le Pack Complet, c'est 497€ une fois. Tu reçois ton pack, c'est tout. Pas d'abonnement, pas de renouvellement, pas de surprise sur ta carte.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Quelle différence entre les deux offres ? <span class="faq-arrow">&#8964;</span></div>
+        <div class="faq-a"><p>Le diagnostic est le même dans les deux cas. Le Pack Découverte à 49€ te donne tes prompts personnalisés, prêts à coller dans Claude Code, plus le guide de préparation. Le Pack Complet à 497€ ajoute le bundle ZIP livré sous 24h, l'architecture et la stack recommandées, deux sessions d'une heure avec un consultant et 30 jours de support par email. Tu choisis à la fin du diagnostic.</p></div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Et si je ne suis pas satisfait ? <span class="faq-arrow">&#8964;</span></div>
-        <div class="faq-a"><p>Tu as 7 jours pour demander un remboursement complet, sans justification. Envoie un email à contact@holasaas.ai et on rembourse dans les 48h.</p></div>
+        <div class="faq-a"><p>Le Pack Complet est remboursable 7 jours, sans justification. Le Pack Découverte, dont les prompts sont livrés immédiatement après le paiement, n'est pas remboursable une fois le contenu affiché. Dans tous les cas, écris à contact@holasaas.ai et on te répond sous 48h.</p></div>
       </div>
     </div>
   </div>
@@ -523,7 +544,21 @@ footer p{font-size:.8rem;color:var(--muted)}
     <div class="summary-cta-wrap">
       <div class="summary-price">&euro;497</div>
       <div class="summary-once">paiement unique, accès immédiat</div>
-      <button class="summary-pay-btn" onclick="goToPayment()">Payer et recevoir mon pack</button>
+      <div style="margin:24px 0 8px;text-align:left;">
+        <label style="display:block;font-size:13px;color:#8888aa;margin-bottom:8px;">Adresse email pour recevoir ton bundle</label>
+        <input id="client-email" type="email" placeholder="ton@email.com"
+          style="width:100%;padding:12px 16px;border-radius:10px;border:1.5px solid #2a2a3a;background:#12121e;color:#fff;font-size:15px;box-sizing:border-box;outline:none;"
+          onfocus="this.style.borderColor='#7c6fff'" onblur="this.style.borderColor='#2a2a3a'">
+        <div id="email-error" style="color:#ff6b6b;font-size:12px;margin-top:6px;display:none;">Adresse email invalide</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+        <button class="summary-pay-btn" onclick="goToPayment('basic')" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
+          Pack Prompts : 49€ <span style="font-size:12px;opacity:0.8;display:block;font-weight:400;margin-top:2px;">Prompts personnalisés + guide de démarrage</span>
+        </button>
+        <button class="summary-pay-btn" onclick="goToPayment('premium')">
+          Pack Complet + Consultant : 497€ <span style="font-size:12px;opacity:0.8;display:block;font-weight:400;margin-top:2px;">Bundle ZIP + 2 sessions d'accompagnement</span>
+        </button>
+      </div>
       <div style="margin-top:16px;font-size:.8rem;color:var(--muted)">Paiement sécurisé Stripe · Remboursement 7j sans conditions</div>
       <div style="margin-top:12px"><button onclick="backToDiag()" style="background:none;border:none;color:var(--muted);font-size:.85rem;cursor:pointer;text-decoration:underline">Modifier mes réponses</button></div>
     </div>
@@ -646,6 +681,7 @@ const QUESTIONS = [
 // STATE
 // ══════════════════════════════════════
 const STRIPE_URL = "https://buy.stripe.com/dRmcN6bLnbtOe0wgEZ8Zq00";
+const STRIPE_URL_BASIC = "https://buy.stripe.com/eVqdRa6r341mbCkbkF8Zq01";
 let qIndex = 0;
 let answers = {};
 
@@ -654,7 +690,8 @@ let answers = {};
 // ══════════════════════════════════════
 function startDiag(){
   const p = new URLSearchParams(location.search);
-  if(p.get("success")==="1"){ showSuccess(); return; }
+  const s = p.get("success");
+  if(s === "1" || s === "basic"){ showSuccess(); return; }
   startOnboarding();
 }
 function startDiagForReal(){
@@ -1065,9 +1102,33 @@ function formatAnswer(q, val){
 // ══════════════════════════════════════
 // PAYMENT
 // ══════════════════════════════════════
-function goToPayment(){
+async function goToPayment(tier = 'premium'){
+  const emailInput = document.getElementById("client-email");
+  const email = emailInput ? emailInput.value.trim() : "";
+  const emailError = document.getElementById("email-error");
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRe.test(email)){
+    if(emailError) emailError.style.display = "block";
+    return;
+  }
+  if(emailError) emailError.style.display = "none";
+  window._clientEmail = email;
   try{ localStorage.setItem("holasaas_answers", JSON.stringify(answers)); }catch(e){}
-  window.location.href = STRIPE_URL;
+  window._clientTier = tier;
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 4000);
+    await fetch("/api/capture", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, answers, tier }),
+      signal: ctrl.signal
+    });
+    clearTimeout(t);
+  } catch(e) {
+    // silencieux : on ne bloque pas le paiement
+  }
+  window.location.href = tier === 'basic' ? STRIPE_URL_BASIC : STRIPE_URL;
 }
 
 // ══════════════════════════════════════
@@ -1077,10 +1138,24 @@ function showSuccess(){
   document.getElementById("landing").style.display="none";
   const so = document.getElementById("success-overlay");
   so.classList.remove("hidden");
+  const urlParams = new URLSearchParams(window.location.search);
+  const tier = urlParams.get('success') === 'basic' ? 'basic' : 'premium';
+  const out = document.getElementById("prompts-output");
+
+  if(tier === 'premium'){
+    out.innerHTML = `
+      <div style="text-align:center;padding:48px 24px;">
+        <div style="font-size:48px;margin-bottom:16px;">✅</div>
+        <h2 style="color:#fff;margin-bottom:12px;">Paiement confirmé</h2>
+        <p style="color:#8888aa;font-size:16px;line-height:1.6;">Ton bundle ZIP personnalisé arrive dans les 24h.<br>Surveille ta boîte email.</p>
+      </div>
+    `;
+    return;
+  }
+
   let a = {};
   try{ a = JSON.parse(localStorage.getItem("holasaas_answers")||"{}"); }catch(e){}
   const prompts = generatePrompts(a);
-  const out = document.getElementById("prompts-output");
   out.innerHTML = prompts.map((p,i)=>`
     <div class="prompt-block">
       <div class="prompt-head">
@@ -1346,10 +1421,46 @@ Implémente cette fonctionnalité de façon complète :
 
 Commence par la feature la plus critique pour l'utilisateur.`;
 
+  const promptPrerequis = `# Guide de préparation : Avant de coder ton SaaS
+
+## 1. Prérequis techniques
+
+### Comptes à créer
+- [ ] GitHub : https://github.com. Crée un compte et un repo privé nommé "mon-saas".
+- [ ] Vercel : https://vercel.com. Connecte ton compte GitHub pour le déploiement automatique.
+- [ ] ${(a[55] && a[55] !== "nsp") ? g(55) : "Supabase"} : crée un projet, récupère l'URL et la clé anon dans Settings > API.
+- [ ] Stripe : https://stripe.com. Crée un compte, active le mode test, récupère tes clés API.
+
+### Environnement local
+- [ ] Installe Node.js (version LTS) : https://nodejs.org
+- [ ] Installe VS Code : https://code.visualstudio.com
+- [ ] Installe Git : https://git-scm.com
+
+## 2. Prérequis légaux
+
+${a[35] ? `Tu as indiqué la structure suivante : ${g(35)}. Vérifie que ta structure couvre bien une activité commerciale en ligne.` : "Tu devras créer une structure juridique. La micro-entreprise est recommandée pour démarrer (inscription sur guichet-entreprises.fr)."}
+
+- [ ] Rédige tes Conditions Générales de Vente (CGV). Utilise un générateur comme https://www.cnil.fr ou un avocat.
+- [ ] Ajoute une page Mentions Légales (obligatoire en France).
+- [ ] Rédige une Politique de Confidentialité si tu collectes des données personnelles (obligatoire RGPD).
+- [ ] Achète ton nom de domaine si ce n'est pas fait.
+
+## 3. Prérequis produit
+
+- [ ] Valide ton positionnement : quel problème exact résous-tu, pour qui ?
+- [ ] Tes 3 fonctionnalités MVP prioritaires : ${(a[13] || []).slice(0, 3).join(", ") || "à définir depuis tes réponses au diagnostic"}.
+- [ ] Prépare 3 captures d'écran ou wireframes de ton interface cible avant de coder.
+- [ ] Valide ton pricing avec au moins 3 clients potentiels avant le lancement.
+
+## 4. Une fois tout ça en place
+
+Lance le Prompt Maître dans Claude Code. Il prendra en charge le reste.`;
+
   return [
     { title: "Prompt Maître", badge: "Prompt principal", content: masterPrompt },
     { title: "Phase 1 : Architecture", badge: "Prompt de build", content: promptArchitecture },
     { title: "Phase 2 : Fonctionnalités MVP", badge: "Prompt de build", content: promptFeatures },
+    { title: "Guide de préparation", badge: "À faire en premier", content: promptPrerequis },
   ];
 }
 
@@ -1366,7 +1477,8 @@ function toggleFaq(el){
 // ══════════════════════════════════════
 window.addEventListener("DOMContentLoaded",()=>{
   const p = new URLSearchParams(location.search);
-  if(p.get("success")==="1"){ showSuccess(); }
+  const s = p.get("success");
+  if(s === "1" || s === "basic"){ showSuccess(); }
 });
 </script>
 </body>
