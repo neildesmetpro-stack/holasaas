@@ -315,6 +315,7 @@ footer p{font-size:.8rem;color:var(--muted)}
   .hero-stats{flex-direction:column;gap:16px}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
 
@@ -591,6 +592,9 @@ footer p{font-size:.8rem;color:var(--muted)}
     <h2>Ton pack SaaS est prêt.</h2>
     <p class="s-sub">Copie les prompts ci-dessous dans Claude Code et suis les étapes dans l'ordre. Ton SaaS va prendre vie.</p>
     <div id="prompts-output"></div>
+    <div style="text-align:center;margin-top:32px;">
+      <button id="download-zip-btn" onclick="downloadZip()" style="display:none;padding:14px 32px;background:linear-gradient(135deg,#e8607a,#9b6fff,#3b82f6);border:none;border-radius:100px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;">Télécharger mes prompts (.zip)</button>
+    </div>
     <div class="next-steps">
       <h3>Les prochaines étapes</h3>
       <div class="steps-list">
@@ -1193,6 +1197,24 @@ function showSuccess(){
     </div>
   `).join("");
   window._prompts = prompts;
+  const dlBtn = document.getElementById("download-zip-btn");
+  if(dlBtn) dlBtn.style.display = "block";
+}
+
+async function downloadZip(){
+  if(!window._prompts || !window.JSZip) return;
+  const zip = new JSZip();
+  const names = ["01-prompt-maitre.md","02-architecture.md","03-features-mvp.md","04-guide-preparation.md"];
+  window._prompts.forEach((p,i)=>{
+    if(names[i]) zip.file(names[i], p.content);
+  });
+  const blob = await zip.generateAsync({type:"blob"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "holasaas-bundle.zip";
+  a.click();
+  URL.revokeObjectURL(url);
 }
 function escHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 function copyPrompt(btn, i){

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin HolaSaaS</title>
+  <style>
+    body{font-family:system-ui,sans-serif;background:#08080f;color:#fff;max-width:600px;margin:60px auto;padding:24px}
+    h1{font-size:1.4rem;margin-bottom:8px;color:#9b6fff}
+    p{color:#8888aa;font-size:.9rem;margin-bottom:24px}
+    textarea{width:100%;height:200px;background:#12121e;border:1.5px solid #2a2a3a;border-radius:10px;color:#fff;padding:16px;font-size:.85rem;font-family:monospace;box-sizing:border-box;resize:vertical}
+    button{margin-top:16px;width:100%;padding:14px;background:linear-gradient(135deg,#e8607a,#9b6fff,#3b82f6);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:600;cursor:pointer}
+    .error{color:#ff6b6b;font-size:.85rem;margin-top:8px;display:none}
+  </style>
+</head>
+<body>
+  <h1>Admin HolaSaaS</h1>
+  <p>Colle ici le contenu du champ "answers" depuis Airtable, puis clique sur Charger pour générer les prompts.</p>
+  <textarea id="answers-json" placeholder='{"1":"...","2":"...",...}'></textarea>
+  <div class="error" id="err">JSON invalide, vérifie le contenu collé.</div>
+  <button onclick="load()">Charger les réponses et générer les prompts</button>
+  <script>
+    (function(){
+      const pwd = prompt("Mot de passe admin :");
+      if(pwd !== "holasaas2026") { document.body.innerHTML="<p style='color:red'>Accès refusé.</p>"; }
+    })();
+
+    function load(){
+      const raw = document.getElementById('answers-json').value.trim();
+      const err = document.getElementById('err');
+      try{
+        JSON.parse(raw);
+        err.style.display='none';
+        localStorage.setItem('holasaas_answers', raw);
+        window.location.href='index.html?success=basic';
+      }catch(e){
+        err.style.display='block';
+      }
+    }
+  </script>
+</body>
+</html>
