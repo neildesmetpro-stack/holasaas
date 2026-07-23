@@ -561,6 +561,13 @@ footer p{font-size:.8rem;color:var(--muted)}
           onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#2a2a3a'">
         <div id="email-error" style="color:#ff6b6b;font-size:12px;margin-top:6px;display:none;">Adresse email invalide</div>
       </div>
+      <div style="margin:16px 0;text-align:left;">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:#8888aa;line-height:1.5;">
+          <input type="checkbox" id="cgv-consent" style="margin-top:2px;accent-color:#9b6fff;flex-shrink:0;">
+          <span>J'ai lu et j'accepte les <a href="cgv.html" target="_blank" style="color:#9b6fff;text-decoration:underline;">CGV</a>. Pour le Pack Découverte (49€), je reconnais que le contenu est livré immédiatement et renonce à mon droit de rétractation.</span>
+        </label>
+        <div id="cgv-error" style="color:#ff6b6b;font-size:12px;margin-top:6px;display:none;">Tu dois accepter les CGV pour continuer.</div>
+      </div>
       <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
         <button class="summary-pay-btn" onclick="goToPayment('basic')" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
           Pack Prompts : 49€ <span style="font-size:12px;opacity:0.8;display:block;font-weight:400;margin-top:2px;">Prompts personnalisés + guide de démarrage</span>
@@ -1122,6 +1129,13 @@ async function goToPayment(tier = 'premium'){
     return;
   }
   if(emailError) emailError.style.display = "none";
+  const cgvBox = document.getElementById("cgv-consent");
+  const cgvError = document.getElementById("cgv-error");
+  if(!cgvBox || !cgvBox.checked){
+    if(cgvError) cgvError.style.display = "block";
+    return;
+  }
+  if(cgvError) cgvError.style.display = "none";
   window._clientEmail = email;
   try{ localStorage.setItem("holasaas_answers", JSON.stringify(answers)); }catch(e){}
   window._clientTier = tier;
