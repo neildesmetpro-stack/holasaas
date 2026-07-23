@@ -3,7 +3,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { email, answers } = req.body || {};
+  const { email, answers, tier } = req.body || {};
 
   if (!email || !answers) {
     return res.status(400).json({ error: 'Missing email or answers' });
@@ -24,6 +24,7 @@ module.exports = async function handler(req, res) {
             answers: JSON.stringify(answers),
             created_at: new Date().toISOString().split('T')[0],
             status: 'pending',
+            tier: tier || 'premium',
           },
         }),
       }
